@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <rect width="600" height="400" fill="#0B1424"/>
+  <defs>
+    <linearGradient id="social" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#12D7E8"/>
+      <stop offset="100%" stop-color="#387BFF"/>
+    </linearGradient>
+  </defs>
+  <!-- Social post mockups -->
+  <rect x="30" y="40" width="160" height="200" rx="8" fill="#0F1A2E" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
+  <rect x="40" y="50" width="140" height="120" rx="4" fill="rgba(18,215,232,0.1)"/>
+  <rect x="40" y="185" width="80" height="8" rx="2" fill="rgba(148,163,184,0.15)"/>
+  <rect x="40" y="200" width="120" height="6" rx="2" fill="rgba(148,163,184,0.08)"/>
+  <rect x="220" y="40" width="160" height="200" rx="8" fill="#0F1A2E" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
+  <rect x="230" y="50" width="140" height="120" rx="4" fill="rgba(131,87,255,0.1)"/>
+  <rect x="230" y="185" width="80" height="8" rx="2" fill="rgba(148,163,184,0.15)"/>
+  <rect x="230" y="200" width="120" height="6" rx="2" fill="rgba(148,163,184,0.08)"/>
+  <rect x="410" y="40" width="160" height="200" rx="8" fill="#0F1A2E" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
+  <rect x="420" y="50" width="140" height="120" rx="4" fill="rgba(56,123,255,0.1)"/>
+  <rect x="420" y="185" width="80" height="8" rx="2" fill="rgba(148,163,184,0.15)"/>
+  <rect x="420" y="200" width="120" height="6" rx="2" fill="rgba(148,163,184,0.08)"/>
+  <!-- Story format -->
+  <rect x="130" y="270" width="80" height="100" rx="20" fill="#0F1A2E" stroke="url(#social)" stroke-width="2" opacity="0.8"/>
+  <rect x="260" y="270" width="80" height="100" rx="20" fill="#0F1A2E" stroke="rgba(148,163,184,0.2)" stroke-width="1"/>
+  <rect x="390" y="270" width="80" height="100" rx="20" fill="#0F1A2E" stroke="rgba(148,163,184,0.2)" stroke-width="1"/>
+  <text x="300" y="395" text-anchor="middle" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.4)" letter-spacing="1">SOCIAL CONTENT · CAMPAIGN CREATIVES</text>
+</svg>

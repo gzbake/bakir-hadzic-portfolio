@@ -1,0 +1,53 @@
+---
+interface Props {
+  number?: string;
+  label?: string;
+  title: string;
+  description?: string;
+  align?: 'left' | 'center';
+}
+
+const { number, label, title, description, align = 'left' } = Astro.props;
+---
+
+<div class={`section-heading section-heading--${align}`}>
+  {(number || label) && (
+    <p class="section-heading__eyebrow mono-label">
+      {number && <span>{number}</span>}
+      {number && label && ' / '}
+      {label}
+    </p>
+  )}
+  <h2 class="section-heading__title">{title}</h2>
+  {description && <p class="section-heading__desc">{description}</p>}
+</div>
+
+<style>
+  .section-heading {
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-heading--center {
+    text-align: center;
+    max-width: 640px;
+    margin-inline: auto;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-heading__eyebrow {
+    margin-bottom: var(--space-sm);
+  }
+
+  .section-heading__title {
+    margin-bottom: var(--space-md);
+  }
+
+  .section-heading__desc {
+    font-size: 1.0625rem;
+    max-width: 560px;
+  }
+
+  .section-heading--center .section-heading__desc {
+    margin-inline: auto;
+  }
+</style>

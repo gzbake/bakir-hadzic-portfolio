@@ -1,0 +1,67 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: string;
+}
+
+const {
+  title = 'Bakir Hadžić — Social Media Marketing & Digital Content Specialist',
+  description = 'Social media marketing and digital content specialist with experience in content strategy, design, video, paid advertising, e-commerce, SEO and AI-assisted production. Available for remote roles.',
+  image = '/images/og-default.svg',
+  canonical,
+  type = 'website',
+} = Astro.props;
+
+const siteUrl = Astro.site?.href ?? 'https://bakirhadzic.com';
+const canonicalUrl = canonical ? new URL(canonical, siteUrl).href : Astro.url.href;
+const ogImage = new URL(image, siteUrl).href;
+---
+
+<!-- Primary Meta -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:site_name" content="Bakir Hadžić" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<!-- Structured Data -->
+<script is:inline type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Bakir Hadžić",
+  jobTitle: "Social Media Marketing & Digital Content Specialist",
+  url: siteUrl,
+  email: "bake2905@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Živinice",
+    addressCountry: "BA",
+  },
+  sameAs: [
+    "https://linkedin.com/in/bakirhadzic",
+  ],
+})} />

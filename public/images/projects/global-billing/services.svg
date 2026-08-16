@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" fill="none">
+  <rect width="600" height="400" fill="#0B1424"/>
+  <!-- Services page mockup -->
+  <rect x="40" y="30" width="520" height="340" rx="6" fill="#0F1A2E" stroke="rgba(148,163,184,0.12)" stroke-width="1"/>
+  <rect x="60" y="50" width="200" height="20" rx="2" fill="rgba(148,163,184,0.15)"/>
+  <rect x="60" y="85" width="300" height="10" rx="2" fill="rgba(148,163,184,0.08)"/>
+  <!-- Service list -->
+  <rect x="60" y="120" width="480" height="1" fill="rgba(148,163,184,0.1)"/>
+  <rect x="60" y="140" width="160" height="12" rx="2" fill="rgba(56,123,255,0.3)"/>
+  <rect x="60" y="165" width="400" height="8" rx="2" fill="rgba(148,163,184,0.06)"/>
+  <rect x="60" y="180" width="360" height="8" rx="2" fill="rgba(148,163,184,0.04)"/>
+  <rect x="60" y="210" width="480" height="1" fill="rgba(148,163,184,0.1)"/>
+  <rect x="60" y="230" width="180" height="12" rx="2" fill="rgba(56,123,255,0.3)"/>
+  <rect x="60" y="255" width="400" height="8" rx="2" fill="rgba(148,163,184,0.06)"/>
+  <rect x="60" y="270" width="320" height="8" rx="2" fill="rgba(148,163,184,0.04)"/>
+  <rect x="60" y="300" width="480" height="1" fill="rgba(148,163,184,0.1)"/>
+  <rect x="60" y="320" width="140" height="12" rx="2" fill="rgba(56,123,255,0.3)"/>
+  <rect x="60" y="345" width="380" height="8" rx="2" fill="rgba(148,163,184,0.06)"/>
+  <text x="300" y="395" text-anchor="middle" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.4)" letter-spacing="1">SERVICES PAGE · B2B CONTENT</text>
+</svg>

@@ -1,0 +1,66 @@
+---
+import { toolCategories } from '../data/portfolio';
+---
+
+<section class="tools section-padding" id="tools">
+  <div class="container">
+    <div class="tools__header">
+      <p class="mono-label">04 / TOOLS</p>
+      <h2 class="tools__title">Tools & Technology</h2>
+    </div>
+
+    <div class="tools__cloud">
+      {toolCategories.map((category) => (
+        <div class="tools__category">
+          <span class="tools__label mono-label">{category.label}</span>
+          <div class="tools__pills">
+            {category.tools.map((tool) => (
+              <span class="tool-pill">{tool}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tools {
+    background: var(--bg-secondary);
+    border-block: 1px solid var(--border-subtle);
+  }
+
+  .tools__header {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .tools__title {
+    margin-top: var(--space-sm);
+  }
+
+  .tools__cloud {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .tools__category {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-md) var(--space-lg);
+  }
+
+  .tools__label {
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    min-width: 100px;
+    flex-shrink: 0;
+  }
+
+  .tools__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import ProjectCard from './ProjectCard.astro';
+import { getFeaturedProjects } from '../data/portfolio';
+
+const featuredProjects = getFeaturedProjects();
+const [primary, secondary] = featuredProjects;
+---
+
+<section class="work section-padding" id="work">
+  <div class="container">
+    <SectionHeading
+      number="01"
+      label="SELECTED WORK"
+      title="Selected Work"
+      description="A curated selection of brand, social, e-commerce, content and digital projects."
+    />
+
+    <div class="work__grid">
+      {primary && (
+        <div class="work__primary">
+          <ProjectCard project={primary} featured />
+        </div>
+      )}
+      {secondary && (
+        <div class="work__secondary">
+          <ProjectCard project={secondary} />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .work__grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-3xl);
+    align-items: start;
+  }
+
+  @media (max-width: 968px) {
+    .work__grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+  }
+</style>

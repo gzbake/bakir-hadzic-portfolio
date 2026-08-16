@@ -1,0 +1,249 @@
+---
+import { site, contact } from '../data/portfolio';
+---
+
+<section class="hero" id="hero">
+  <div class="spotlight hero__spotlight"></div>
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <p class="hero__eyebrow mono-label reveal">{site.heroEyebrow}</p>
+
+      <div class="hero__identity reveal reveal-delay-1">
+        <h1 class="hero__name">{site.name}</h1>
+        <p class="hero__title">{site.title}</p>
+      </div>
+
+      <p class="hero__headline reveal reveal-delay-2">{site.heroHeadline}</p>
+      <p class="hero__sub reveal reveal-delay-2">{site.heroSubheadline}</p>
+
+      <div class="hero__tags reveal reveal-delay-3">
+        {site.capabilities.map((cap) => (
+          <span class="tag">{cap}</span>
+        ))}
+      </div>
+
+      <div class="hero__actions reveal reveal-delay-4">
+        <a href="/#work" class="btn btn--primary">View Selected Work</a>
+        <a href="/#contact" class="btn btn--secondary">Contact Me</a>
+        <a href={contact.cvPath} class="btn btn--ghost" download>Download CV</a>
+      </div>
+    </div>
+
+    <div class="hero__visual reveal reveal-delay-3" aria-hidden="true">
+      <div class="hero__composition">
+        <div class="hero__grid-card hero__grid-card--1">
+          <span class="mono-label">Brand</span>
+          <div class="hero__card-line"></div>
+        </div>
+        <div class="hero__grid-card hero__grid-card--2">
+          <span class="mono-label">Content</span>
+          <div class="hero__card-line hero__card-line--gradient"></div>
+        </div>
+        <div class="hero__grid-card hero__grid-card--3">
+          <span class="mono-label">Growth</span>
+          <div class="hero__card-line"></div>
+        </div>
+        <div class="hero__grid-card hero__grid-card--4">
+          <div class="hero__preview">
+            <div class="hero__preview-bar">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="hero__preview-body">
+              <div class="hero__preview-block"></div>
+              <div class="hero__preview-block hero__preview-block--accent"></div>
+              <div class="hero__preview-row">
+                <div class="hero__preview-thumb"></div>
+                <div class="hero__preview-thumb"></div>
+                <div class="hero__preview-thumb"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: var(--space-4xl) var(--space-3xl);
+    overflow: hidden;
+  }
+
+  .hero__spotlight {
+    top: -200px;
+    right: -100px;
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3xl);
+    align-items: center;
+  }
+
+  .hero__eyebrow {
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__identity {
+    margin-bottom: var(--space-xl);
+  }
+
+  .hero__name {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .hero__title {
+    font-size: 1rem;
+    color: var(--text-secondary);
+  }
+
+  .hero__headline {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+    max-width: 640px;
+  }
+
+  .hero__sub {
+    font-size: 1.0625rem;
+    max-width: 540px;
+    margin-bottom: var(--space-xl);
+    line-height: 1.7;
+  }
+
+  .hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  /* Visual Composition */
+  .hero__composition {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: var(--space-md);
+    position: relative;
+  }
+
+  .hero__grid-card {
+    padding: var(--space-lg);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    transition: border-color var(--transition-base);
+  }
+
+  .hero__grid-card:hover {
+    border-color: var(--border-hover);
+  }
+
+  .hero__grid-card--4 {
+    grid-column: 1 / -1;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .hero__card-line {
+    height: 3px;
+    background: var(--border-subtle);
+    border-radius: 2px;
+    margin-top: var(--space-md);
+  }
+
+  .hero__card-line--gradient {
+    background: var(--gradient-accent);
+  }
+
+  .hero__preview-bar {
+    display: flex;
+    gap: 6px;
+    padding: 10px 14px;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .hero__preview-bar span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-subtle);
+  }
+
+  .hero__preview-bar span:first-child { background: rgba(239, 68, 68, 0.4); }
+  .hero__preview-bar span:nth-child(2) { background: rgba(234, 179, 8, 0.4); }
+  .hero__preview-bar span:nth-child(3) { background: rgba(34, 197, 94, 0.4); }
+
+  .hero__preview-body {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .hero__preview-block {
+    height: 12px;
+    background: var(--border-subtle);
+    border-radius: 2px;
+    width: 70%;
+  }
+
+  .hero__preview-block--accent {
+    width: 45%;
+    background: var(--gradient-accent);
+    opacity: 0.6;
+    height: 8px;
+  }
+
+  .hero__preview-row {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+
+  .hero__preview-thumb {
+    flex: 1;
+    height: 48px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+  }
+
+  @media (max-width: 968px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .hero__visual {
+      order: -1;
+      max-width: 400px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero__actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .hero__actions .btn {
+      justify-content: center;
+    }
+  }
+</style>

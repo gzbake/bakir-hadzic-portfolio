@@ -1,0 +1,84 @@
+---
+import { contact, site } from '../data/portfolio';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__inner container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <span class="footer__name">{site.name}</span>
+        <span class="footer__tagline">{site.tagline}</span>
+      </div>
+      <div class="footer__links">
+        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href={`mailto:${contact.email}`}>Email</a>
+        <a href={contact.cvPath} download>CV</a>
+      </div>
+    </div>
+    <hr class="gradient-divider" />
+    <p class="footer__copy">{site.name} &copy; {currentYear}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    z-index: 1;
+    padding-block: var(--space-2xl);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .footer__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-lg);
+  }
+
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .footer__name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  .footer__tagline {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  .footer__links {
+    display: flex;
+    gap: var(--space-lg);
+  }
+
+  .footer__links a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .footer__links a:hover {
+    color: var(--accent-cyan);
+  }
+
+  .footer__copy {
+    margin-top: var(--space-lg);
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  @media (max-width: 480px) {
+    .footer__top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
