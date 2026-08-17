@@ -23,10 +23,11 @@ export const contact = {
 };
 
 export const navLinks = [
-  { label: 'About Me', href: '#about' },
-  { label: 'Work Experience', href: '#experience' },
-  { label: 'My Previous Work', href: '#work' },
-  { label: 'Contact Me', href: '#contact' },
+  { label: 'About Me', href: '/#about' },
+  { label: 'Work Experience', href: '/#experience' },
+  { label: 'Skills', href: '/#skills' },
+  { label: 'My Previous Work', href: '/#work' },
+  { label: 'Contact Me', href: '/#contact' },
 ];
 
 export const about = {

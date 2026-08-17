@@ -13,6 +13,7 @@ export interface WorkGroup {
   title: string;
   category: string;
   layout: 'pair' | 'showcase';
+  href?: string;
   items: WorkItem[];
 }
 
@@ -29,6 +30,7 @@ export const workGroups: WorkGroup[] = [
     title: 'Inat Bosanski',
     category: 'Branding · E-commerce · Apparel',
     layout: 'pair',
+    href: '/work/inat-bosanski',
     items: [
       {
         image: '/images/work/inat-mockup.png',

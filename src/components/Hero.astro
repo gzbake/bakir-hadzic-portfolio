@@ -13,10 +13,20 @@ import { site } from '../data/site';
       <h1 class="hero__name reveal" data-hero="name">{site.name}</h1>
       <p class="hero__title reveal" data-hero="title">{site.title}</p>
       <p class="hero__intro reveal" data-hero="intro">{site.intro}</p>
-      <p class="hero__meta reveal" data-hero="meta">{site.location}</p>
-      <a href="#work" class="hero__scroll reveal" data-hero="scroll">
-        Scroll to see my work <span class="arrow">↓</span>
-      </a>
+      <p class="hero__meta reveal" data-hero="meta">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+          <path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z" stroke-linejoin="round"></path>
+          <circle cx="12" cy="10" r="2.2"></circle>
+        </svg>
+        <span>{site.location}</span>
+      </p>
+      <div class="hero__actions reveal" data-hero="scroll">
+        <a href="#work" class="btn btn--light js-magnet">
+          Scroll to see my work
+          <span class="arrow">↓</span>
+        </a>
+        <a href="#contact" class="btn btn--ghost js-magnet">Contact Me</a>
+      </div>
     </div>
   </div>
 </section>
@@ -80,31 +90,35 @@ import { site } from '../data/site';
   }
 
   .hero__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.875rem;
     color: var(--text-dim);
     margin-bottom: 2.25rem;
-  }
-
-  .hero__scroll {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    transition: color 0.3s var(--ease);
     width: fit-content;
   }
 
-  .hero__scroll:hover {
+  .hero__meta svg {
+    width: 15px;
+    height: 15px;
     color: var(--accent);
+    flex-shrink: 0;
   }
 
-  .hero__scroll .arrow {
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero__actions .arrow {
     transition: transform 0.35s var(--ease);
   }
 
-  .hero__scroll:hover .arrow {
-    transform: translateY(4px);
+  .hero__actions a:hover .arrow {
+    transform: translateY(3px);
   }
 
   @media (max-width: 1100px) {
@@ -150,6 +164,11 @@ import { site } from '../data/site';
   @media (max-width: 480px) {
     .hero__media {
       max-width: 220px;
+    }
+
+    .hero__actions {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 </style>

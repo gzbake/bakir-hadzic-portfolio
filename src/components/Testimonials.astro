@@ -1,0 +1,143 @@
+---
+import { testimonials } from '../data/testimonials';
+
+const stars = [1, 2, 3, 4, 5];
+---
+
+<section class="section testimonials" id="testimonials" data-section="testimonials">
+  <div class="wrap">
+    <div class="testimonials__intro">
+      <p class="section-kicker reveal" data-reveal="up">05 / SOCIAL PROOF</p>
+      <h2 class="section-title reveal" data-reveal="up">What collaborators say</h2>
+      <div class="testimonials__proof reveal" data-reveal="up">
+        <span class="stars" aria-label="5 out of 5 stars">
+          {stars.map(() => (
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+              <path d="M12 2.4l2.47 5.96 6.53.55-4.97 4.28 1.5 6.31L12 16.7 6.47 19.5l1.5-6.31L3 8.91l6.53-.55L12 2.4z"></path>
+            </svg>
+          ))}
+        </span>
+        <p><strong>5.0</strong> average from people I’ve worked with</p>
+      </div>
+    </div>
+
+    <div class="testimonials__grid">
+      {testimonials.map((item) => (
+        <article class="testimonials__card reveal" data-stagger>
+          <div class="testimonials__rating">
+            <span class="stars" aria-hidden="true">
+              {stars.map(() => (
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M12 2.4l2.47 5.96 6.53.55-4.97 4.28 1.5 6.31L12 16.7 6.47 19.5l1.5-6.31L3 8.91l6.53-.55L12 2.4z"></path>
+                </svg>
+              ))}
+            </span>
+            <span>5.0</span>
+          </div>
+          <p class="testimonials__quote">{item.quote}</p>
+          <div class="testimonials__person">
+            <img src={item.image} alt={item.name} />
+            <div>
+              <p class="testimonials__name">{item.name}</p>
+              <p class="testimonials__role">{item.role}</p>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__intro {
+    max-width: 720px;
+    margin-bottom: 0.5rem;
+  }
+
+  .testimonials__proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin: -2.25rem 0 3.25rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .testimonials__proof strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+
+  .testimonials__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    padding: 1.6rem 1.45rem 1.45rem;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .testimonials__rating {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+  }
+
+  .testimonials__quote {
+    color: var(--text-muted);
+    font-size: 1.02rem;
+    line-height: 1.65;
+    letter-spacing: -0.02em;
+    flex: 1;
+  }
+
+  .testimonials__person {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .testimonials__person img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .testimonials__name {
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .testimonials__role {
+    margin-top: 0.15rem;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+  }
+
+  @media (max-width: 900px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .testimonials__proof {
+      margin-top: -1.25rem;
+      margin-bottom: 2rem;
+    }
+  }
+</style>

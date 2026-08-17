@@ -1,0 +1,378 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCaseStudy } from '../../data/caseStudies';
+
+const study = getCaseStudy('inat-bosanski');
+if (!study) throw new Error('Missing Inat Bosanski case study');
+
+const stars = [1, 2, 3, 4, 5];
+const accentIndex = study.storyTitle.toLowerCase().indexOf(study.storyAccent.toLowerCase());
+const titleBefore = accentIndex >= 0 ? study.storyTitle.slice(0, accentIndex) : study.storyTitle;
+const titleAccent = accentIndex >= 0 ? study.storyTitle.slice(accentIndex, accentIndex + study.storyAccent.length) : '';
+const titleAfter = accentIndex >= 0 ? study.storyTitle.slice(accentIndex + study.storyAccent.length) : '';
+---
+
+<Layout
+  title={`${study.title} — Case study · Bakir Hadžić`}
+  description={study.subhead}
+  image={study.heroImage}
+>
+  <article class="case" data-section="work">
+    <div class="wrap">
+      <a href="/#work" class="case__back">← Selected work</a>
+
+      <div class="case__layout">
+        <div class="case__main">
+          <div class="case__hero">
+            <img src={study.heroImage} alt={study.heroAlt} />
+            <div class="case__hero-copy">
+              <p class="section-kicker">{study.kicker}</p>
+              <h1>{study.headline}</h1>
+              <p>{study.subhead}</p>
+              <a href={study.heroCta.href} class="btn btn--light">{study.heroCta.label}</a>
+            </div>
+          </div>
+
+          <div class="case__stats">
+            {study.stats.map((stat) => (
+              <div>
+                <p class="case__stat-value">{stat.value}</p>
+                <p class="case__stat-label">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div class="case__tags">
+            {study.tags.map((tag) => (
+              <span>{tag}</span>
+            ))}
+          </div>
+
+          <h2 class="case__story-title">
+            {titleBefore}<em>{titleAccent}</em>{titleAfter}
+          </h2>
+          <p class="case__story">{study.storyBody}</p>
+          {study.liveCta && (
+            <a href={study.liveCta.href} class="btn btn--light">{study.liveCta.label}</a>
+          )}
+        </div>
+
+        <aside class="case__side">
+          <div class="case__panel">
+            <section>
+              <h3>Problems</h3>
+              <ul class="case__problems">
+                {study.problems.map((item) => (
+                  <li>
+                    <span aria-hidden="true">✕</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section>
+              <h3>Solutions</h3>
+              <ul class="case__solutions">
+                {study.solutions.map((item) => (
+                  <li>
+                    <span aria-hidden="true">✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="case__quote">
+              <h3>Testimonial</h3>
+              <div class="stars" aria-label="5 out of 5 stars">
+                {stars.map(() => (
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                    <path d="M12 2.4l2.47 5.96 6.53.55-4.97 4.28 1.5 6.31L12 16.7 6.47 19.5l1.5-6.31L3 8.91l6.53-.55L12 2.4z"></path>
+                  </svg>
+                ))}
+              </div>
+              <p>{study.testimonial.quote}</p>
+              <div class="case__person">
+                <img src={study.testimonial.image} alt={study.testimonial.name} />
+                <div>
+                  <p>{study.testimonial.name}</p>
+                  <span>{study.testimonial.role}</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </aside>
+      </div>
+
+      <div class="case__gallery" id="gallery">
+        {study.gallery.map((image) => (
+          <figure class={`case__shot case__shot--${image.size}`}>
+            <img src={image.src} alt={image.alt} />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .case {
+    padding-top: calc(var(--nav-h) + 2.5rem);
+    padding-bottom: 5rem;
+  }
+
+  .case__back {
+    display: inline-flex;
+    margin-bottom: 1.75rem;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    transition: color 0.3s var(--ease);
+  }
+
+  .case__back:hover {
+    color: var(--accent);
+  }
+
+  .case__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.9fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .case__hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    border-radius: 18px;
+  }
+
+  .case__hero img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case__hero-copy {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 420px;
+    padding: 2.25rem 2rem;
+    background: linear-gradient(180deg, rgba(17, 17, 17, 0.12), rgba(17, 17, 17, 0.82) 72%);
+  }
+
+  .case__hero-copy h1 {
+    max-width: 16ch;
+    font-size: clamp(2rem, 4vw, 3.1rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+    margin-bottom: 0.8rem;
+  }
+
+  .case__hero-copy p:not(.section-kicker) {
+    max-width: 42ch;
+    color: var(--text-muted);
+    margin-bottom: 1.35rem;
+  }
+
+  .case__stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.15rem;
+    padding: 1.1rem 0.4rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .case__stat-value {
+    color: var(--accent);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+  }
+
+  .case__stat-label {
+    margin-top: 0.2rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .case__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.25rem 0 1.75rem;
+  }
+
+  .case__tags span {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+  }
+
+  .case__story-title {
+    max-width: 18ch;
+    font-size: clamp(1.85rem, 3.4vw, 2.7rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 1.12;
+    margin-bottom: 1.15rem;
+  }
+
+  .case__story-title em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  .case__story {
+    max-width: 58ch;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 1.75rem;
+  }
+
+  .case__side {
+    position: sticky;
+    top: 110px;
+  }
+
+  .case__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding: 1.6rem 1.45rem 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(21, 21, 21, 0.88);
+  }
+
+  .case__panel h3 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.9rem;
+  }
+
+  .case__problems li,
+  .case__solutions li {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: 0.7rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  .case__problems span {
+    color: var(--text-dim);
+  }
+
+  .case__solutions span {
+    color: var(--accent);
+  }
+
+  .case__quote p {
+    margin: 0.85rem 0 1.1rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .case__person {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .case__person img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .case__person p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .case__person span {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  .case__gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .case__shot {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #161616;
+  }
+
+  .case__shot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case__shot--wide {
+    min-height: 280px;
+  }
+
+  .case__shot--portrait {
+    min-height: 360px;
+  }
+
+  @media (max-width: 1000px) {
+    .case__layout,
+    .case__gallery {
+      grid-template-columns: 1fr;
+    }
+
+    .case__side {
+      position: static;
+    }
+
+    .case__stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 600px) {
+    .case__hero,
+    .case__hero-copy {
+      min-height: 360px;
+    }
+
+    .case__stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

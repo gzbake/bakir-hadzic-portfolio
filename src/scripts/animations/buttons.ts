@@ -3,7 +3,7 @@ import { prefersReducedMotion } from './hero';
 export function initButtons() {
   if (prefersReducedMotion() || window.matchMedia('(pointer: coarse)').matches) return;
 
-  const magnets = document.querySelectorAll<HTMLElement>('.hero__scroll');
+  const magnets = document.querySelectorAll<HTMLElement>('.js-magnet');
 
   magnets.forEach((el) => {
     const strength = 10;

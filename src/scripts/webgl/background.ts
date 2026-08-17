@@ -86,7 +86,7 @@ const fragmentShader = /* glsl */ `
     float vignette = smoothstep(1.18, 0.28, length((uv - 0.5) * vec2(1.05, 1.0)));
     color *= mix(0.9, 1.0, vignette);
 
-    float grain = (hash(uv * 72.0) - 0.5) * 0.012 * uQuality;
+    float grain = (hash(uv * 220.0) - 0.5) * 0.008 * uQuality;
     color += grain * 0.35;
 
     gl_FragColor = vec4(color, 1.0);
@@ -104,7 +104,10 @@ function intensityForScroll() {
     hero: 1,
     about: 0.42,
     experience: 0.14,
+    skills: 0.2,
     work: 0.08,
+    testimonials: 0.22,
+    faq: 0.28,
     contact: 0.62,
   };
   return map[name] ?? 0.22;

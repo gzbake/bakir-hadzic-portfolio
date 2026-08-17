@@ -1,0 +1,117 @@
+---
+import { faq } from '../data/faq';
+---
+
+<section class="section faq" id="faq" data-section="faq">
+  <div class="wrap faq__layout">
+    <div class="faq__intro">
+      <p class="section-kicker reveal" data-reveal="up">06 / FAQ</p>
+      <h2 class="section-title reveal" data-reveal="up">A few things people usually ask</h2>
+    </div>
+
+    <div class="faq__list">
+      {faq.map((item) => (
+        <details class="faq__item reveal" data-reveal="up">
+          <summary>
+            <span>{item.question}</span>
+            <span class="faq__icon" aria-hidden="true"></span>
+          </summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
+    gap: 4.5rem;
+    align-items: start;
+  }
+
+  .faq__intro .section-title {
+    margin-bottom: 0;
+    max-width: 12ch;
+  }
+
+  .faq__list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 1.35rem;
+    cursor: pointer;
+    list-style: none;
+    font-size: 1.12rem;
+    letter-spacing: -0.03em;
+  }
+
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__icon {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    background: var(--accent);
+    transition: transform 0.3s var(--ease), opacity 0.3s var(--ease);
+  }
+
+  .faq__icon::before {
+    left: 0;
+    top: 6px;
+    width: 14px;
+    height: 1.5px;
+  }
+
+  .faq__icon::after {
+    left: 6px;
+    top: 0;
+    width: 1.5px;
+    height: 14px;
+  }
+
+  .faq__item[open] .faq__icon::after {
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+
+  .faq__item p {
+    padding-bottom: 1.4rem;
+    max-width: 58ch;
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 900px) {
+    .faq__layout {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .faq__intro .section-title {
+      max-width: none;
+    }
+  }
+</style>

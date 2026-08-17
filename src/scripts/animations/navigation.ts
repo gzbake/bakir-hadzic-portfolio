@@ -16,7 +16,8 @@ export function initNavigation() {
       if (section.offsetTop <= y) current = `#${section.id}`;
     }
     links.forEach((link) => {
-      link.classList.toggle('is-active', link.dataset.navLink === current);
+      const hash = link.dataset.navLink || '';
+      link.classList.toggle('is-active', hash === current);
     });
   };
 
