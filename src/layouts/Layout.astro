@@ -25,6 +25,11 @@ const { title, description, image, canonical } = Astro.props;
   <body>
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
     <div class="bg-fallback" id="bg-fallback" hidden></div>
+    <div class="bg-atmosphere" aria-hidden="true">
+      <span class="bg-orb bg-orb--a"></span>
+      <span class="bg-orb bg-orb--b"></span>
+      <span class="bg-orb bg-orb--c"></span>
+    </div>
     <Header />
     <main>
       <slot />

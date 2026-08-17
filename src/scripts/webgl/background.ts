@@ -8,7 +8,7 @@ const vertexShader = /* glsl */ `
 `;
 
 const fragmentShader = /* glsl */ `
-  precision highp float;
+  precision mediump float;
 
   varying vec2 vUv;
   uniform float uTime;
@@ -28,16 +28,16 @@ const fragmentShader = /* glsl */ `
     float b = hash(i + vec2(1.0, 0.0));
     float c = hash(i + vec2(0.0, 1.0));
     float d = hash(i + vec2(1.0, 1.0));
-    vec2 u = f * f * (3.0 - 2.0 * f);
+    vec2 u = f * f * f * (f * (f * 6.0 - 15.0) + 10.0);
     return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
   }
 
   float fbm(vec2 p) {
     float v = 0.0;
     float a = 0.5;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 4; i++) {
       v += a * noise(p);
-      p *= 2.03;
+      p *= 2.02;
       a *= 0.5;
     }
     return v;
@@ -45,35 +45,49 @@ const fragmentShader = /* glsl */ `
 
   void main() {
     vec2 uv = vUv;
-    vec2 mouse = (uMouse - 0.5) * 0.22;
-    float t = uTime * 0.055;
+    vec2 mouse = (uMouse - 0.5) * 0.16;
+    float t = uTime * 0.028;
+    float scroll = uScroll;
 
-    vec2 p = uv * vec2(1.35, 1.0);
-    p += mouse;
-    p += vec2(sin(t * 0.55), cos(t * 0.4)) * 0.16;
+    vec2 p = uv * vec2(0.72, 0.58);
+    p += mouse * 0.45;
+    p += vec2(sin(t * 0.42), cos(t * 0.31)) * 0.12;
+    p += vec2(scroll * 0.08, -scroll * 0.14);
 
-    float n = fbm(p + t * 0.28);
-    float n2 = fbm(p * 1.65 - t * 0.2 + n);
+    float n = fbm(p + t * 0.18);
+    float n2 = fbm(p * 1.28 - t * 0.12 + n * 0.35);
 
-    vec3 bg = vec3(0.067);
-    vec3 warm = vec3(0.22, 0.09, 0.055);
+    vec3 bg = vec3(0.058, 0.057, 0.055);
+    vec3 warm = vec3(0.145, 0.062, 0.038);
     vec3 ember = vec3(1.0, 0.361, 0.208);
+    vec3 amber = vec3(0.48, 0.2, 0.07);
 
-    vec2 lightPos = vec2(0.72, 0.18) + mouse * 0.35 + vec2(sin(t * 0.35) * 0.08, cos(t * 0.28) * 0.06);
-    float light = exp(-length(uv - lightPos) * 3.2);
+    vec2 lightA = vec2(0.76, 0.14)
+      + mouse * 0.22
+      + vec2(sin(t * 0.33) * 0.09, cos(t * 0.26) * 0.07)
+      + vec2(scroll * 0.05, -scroll * 0.1);
 
-    float field = smoothstep(0.18, 0.9, n * 0.6 + n2 * 0.5);
-    float glow = smoothstep(0.42, 1.0, n2) * uIntensity;
+    vec2 lightB = vec2(0.16, 0.82)
+      + mouse * 0.1
+      + vec2(cos(t * 0.21) * 0.08, sin(t * 0.24) * 0.06)
+      - vec2(scroll * 0.04, 0.0);
 
-    vec3 color = mix(bg, warm, field * 0.95 * uIntensity);
-    color = mix(color, ember * 0.38, glow * 0.7);
-    color += ember * light * 0.22 * uIntensity;
+    float glowA = exp(-length((uv - lightA) * vec2(1.05, 0.92)) * 2.15);
+    float glowB = exp(-length((uv - lightB) * vec2(1.15, 0.88)) * 1.85);
 
-    float vignette = smoothstep(1.2, 0.22, length(uv - 0.5));
-    color *= mix(0.78, 1.0, vignette);
+    float field = smoothstep(0.22, 0.88, n * 0.58 + n2 * 0.42);
+    float wash = smoothstep(0.38, 1.0, n2);
 
-    float grain = (hash(uv * 260.0 + fract(uTime) * 50.0) - 0.5) * 0.04 * uQuality;
-    color += grain * uIntensity;
+    vec3 color = mix(bg, warm, field * 0.52 * uIntensity);
+    color = mix(color, amber * 0.55, wash * 0.16 * uIntensity);
+    color += ember * glowA * 0.17 * uIntensity;
+    color += amber * glowB * 0.12 * uIntensity;
+
+    float vignette = smoothstep(1.18, 0.28, length((uv - 0.5) * vec2(1.05, 1.0)));
+    color *= mix(0.9, 1.0, vignette);
+
+    float grain = (hash(uv * 72.0) - 0.5) * 0.012 * uQuality;
+    color += grain * 0.35;
 
     gl_FragColor = vec4(color, 1.0);
   }
@@ -81,19 +95,19 @@ const fragmentShader = /* glsl */ `
 
 function intensityForScroll() {
   const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-section]'));
-  const y = window.scrollY + window.innerHeight * 0.28;
+  const y = window.scrollY + window.innerHeight * 0.32;
   let name = 'hero';
   for (const section of sections) {
     if (section.offsetTop <= y) name = section.dataset.section || name;
   }
   const map: Record<string, number> = {
     hero: 1,
-    about: 0.32,
-    experience: 0.08,
-    work: 0.05,
-    contact: 0.52,
+    about: 0.42,
+    experience: 0.14,
+    work: 0.08,
+    contact: 0.62,
   };
-  return map[name] ?? 0.2;
+  return map[name] ?? 0.22;
 }
 
 export function createBackground() {
@@ -147,7 +161,7 @@ export function createBackground() {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
       uScroll: { value: 0 },
-      uQuality: { value: isMobile ? 0.45 : 1 },
+      uQuality: { value: isMobile ? 0.4 : 1 },
       uIntensity: { value: 1 },
     };
 
@@ -162,7 +176,7 @@ export function createBackground() {
 
     const resize = () => {
       if (!renderer) return;
-      const dpr = Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5);
+      const dpr = Math.min(window.devicePixelRatio, isMobile ? 1 : 1.25);
       renderer.setPixelRatio(dpr);
       renderer.setSize(window.innerWidth, window.innerHeight, false);
     };
@@ -172,8 +186,9 @@ export function createBackground() {
     window.addEventListener('pointermove', onPointer, { passive: true });
 
     let last = 0;
-    const interval = isMobile ? 1000 / 30 : 1000 / 60;
+    const interval = isMobile ? 1000 / 24 : 1000 / 60;
     const start = performance.now();
+    const root = document.documentElement;
 
     const tick = (now: number) => {
       if (disposed || !renderer) return;
@@ -181,15 +196,18 @@ export function createBackground() {
       if (now - last < interval) return;
       last = now;
 
-      pointer.x += (pointer.tx - pointer.x) * 0.04;
-      pointer.y += (pointer.ty - pointer.y) * 0.04;
-      intensity += (intensityForScroll() - intensity) * 0.045;
+      pointer.x += (pointer.tx - pointer.x) * 0.03;
+      pointer.y += (pointer.ty - pointer.y) * 0.03;
+      intensity += (intensityForScroll() - intensity) * 0.035;
+
+      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const scroll = Math.min(window.scrollY / maxScroll, 1);
 
       uniforms.uTime.value = (now - start) / 1000;
       uniforms.uMouse.value.set(pointer.x, pointer.y);
-      const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      uniforms.uScroll.value = Math.min(window.scrollY / maxScroll, 1);
+      uniforms.uScroll.value = scroll;
       uniforms.uIntensity.value = intensity;
+      root.style.setProperty('--bg-shift', scroll.toFixed(3));
 
       renderer.render(scene, camera);
     };

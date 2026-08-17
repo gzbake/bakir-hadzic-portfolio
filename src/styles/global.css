@@ -45,10 +45,92 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 2;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.016;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.42' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 360px 360px;
+}
+
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-fallback {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(58% 46% at 78% 6%, rgba(255, 92, 53, 0.16), transparent 62%),
+    radial-gradient(48% 38% at 8% 86%, rgba(72, 32, 18, 0.38), transparent 64%),
+    radial-gradient(40% 32% at 52% 48%, rgba(255, 92, 53, 0.05), transparent 70%),
+    var(--bg);
+}
+
+.bg-atmosphere {
+  position: fixed;
+  inset: -8%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transform: translate3d(0, calc(var(--bg-shift, 0) * -36px), 0);
+  will-change: transform;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.7;
+}
+
+.bg-orb--a {
+  width: min(72vw, 920px);
+  height: min(72vw, 920px);
+  top: -22%;
+  right: -16%;
+  background: radial-gradient(circle, rgba(255, 92, 53, 0.18), transparent 68%);
+  animation: orb-drift-a 48s ease-in-out infinite;
+}
+
+.bg-orb--b {
+  width: min(58vw, 760px);
+  height: min(58vw, 760px);
+  bottom: -18%;
+  left: -14%;
+  background: radial-gradient(circle, rgba(78, 34, 18, 0.42), transparent 70%);
+  animation: orb-drift-b 62s ease-in-out infinite;
+}
+
+.bg-orb--c {
+  width: min(42vw, 540px);
+  height: min(42vw, 540px);
+  top: 38%;
+  left: 28%;
+  background: radial-gradient(circle, rgba(255, 140, 80, 0.07), transparent 72%);
+  animation: orb-drift-c 40s ease-in-out infinite;
+}
+
+@keyframes orb-drift-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-7%, 9%) scale(1.08); }
+}
+
+@keyframes orb-drift-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(8%, -6%) scale(1.06); }
+}
+
+@keyframes orb-drift-c {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
+  50% { transform: translate(4%, 7%) scale(1.12); opacity: 0.85; }
 }
 
 img {
@@ -72,26 +154,6 @@ button {
   border: none;
   color: inherit;
   cursor: pointer;
-}
-
-#bg-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.bg-fallback {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(70% 50% at 72% 8%, rgba(255, 92, 53, 0.22), transparent 58%),
-    radial-gradient(55% 40% at 12% 78%, rgba(90, 40, 24, 0.4), transparent 62%),
-    var(--bg);
 }
 
 main {
@@ -163,6 +225,19 @@ section {
   .section-title {
     margin-bottom: 2rem;
   }
+
+  body::after {
+    opacity: 0.01;
+  }
+
+  .bg-orb {
+    filter: blur(70px);
+    opacity: 0.45;
+  }
+
+  .bg-orb--c {
+    display: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -172,6 +247,15 @@ section {
 
   .reveal {
     opacity: 1;
+  }
+
+  .bg-atmosphere {
+    transform: none;
+  }
+
+  .bg-orb {
+    animation: none;
+    opacity: 0.4;
   }
 
   *,
