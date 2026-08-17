@@ -18,19 +18,20 @@ const { title, description, image, canonical } = Astro.props;
 <html lang="en">
   <head>
     <SEO title={title} description={description} image={image} canonical={canonical} />
+    <noscript>
+      <style>.reveal { opacity: 1 !important; }</style>
+    </noscript>
   </head>
   <body>
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="bg-fallback" id="bg-fallback" hidden></div>
     <Header />
     <main>
       <slot />
     </main>
     <Footer />
+    <script>
+      import '../scripts/init';
+    </script>
   </body>
 </html>
-
-<style is:global>
-  main {
-    min-height: 100vh;
-    padding-top: var(--nav-height);
-  }
-</style>

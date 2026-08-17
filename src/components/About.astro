@@ -1,0 +1,102 @@
+---
+import { about } from '../data/site';
+---
+
+<section class="section about" id="about" data-section="about">
+  <div class="wrap about__grid">
+    <div class="about__left">
+      <p class="section-kicker reveal" data-reveal="up">01 / ABOUT</p>
+      <h2 class="about__heading reveal" data-reveal="up">About Me</h2>
+      <p class="about__lead reveal" data-reveal="up">{about.lead}</p>
+    </div>
+
+    <div class="about__copy">
+      {about.paragraphs.map((p) => (
+        <p class="reveal" data-reveal="up">{p}</p>
+      ))}
+      <div class="about__personal">
+        {about.personal.map((p) => (
+          <p class="reveal" data-reveal="up">{p}</p>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    padding-top: 150px;
+    background: linear-gradient(180deg, transparent, var(--bg-soft) 12%, var(--bg-soft) 88%, transparent);
+  }
+
+  .about__grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.15fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about__left {
+    position: sticky;
+    top: 100px;
+  }
+
+  .about__heading {
+    font-size: clamp(2.5rem, 4.6vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+
+  .about__lead {
+    font-size: clamp(1.6rem, 2.4vw, 2.15rem);
+    line-height: 1.25;
+    letter-spacing: -0.035em;
+    max-width: 14ch;
+  }
+
+  .about__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    max-width: 680px;
+    color: var(--text-muted);
+    font-size: 1.0625rem;
+    line-height: 1.72;
+  }
+
+  .about__personal {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 1.75rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 900px) {
+    .about {
+      padding-top: 115px;
+    }
+
+    .about__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .about__left {
+      position: static;
+    }
+
+    .about__lead {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .about {
+      padding-top: 90px;
+    }
+  }
+</style>

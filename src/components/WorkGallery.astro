@@ -1,0 +1,297 @@
+---
+import { socialPreviews, workGroups } from '../data/work';
+---
+
+<section class="section work" id="work" data-section="work">
+  <div class="wrap">
+    <p class="section-kicker reveal" data-reveal="up">03 / SELECTED WORK</p>
+    <h2 class="section-title reveal" data-reveal="up">My Previous Work</h2>
+
+    {workGroups.map((group) => (
+      <div class="work__group">
+        <header class="work__header reveal" data-reveal="up">
+          <span class="work__num">{group.number}</span>
+          <div>
+            <h3 class="work__title">{group.title}</h3>
+            <p class="work__cat">{group.category}</p>
+          </div>
+        </header>
+
+        <div class={`work__gallery work__gallery--${group.layout}`}>
+          {group.items.map((item) => (
+            <article class={`work__item work__item--${item.size} reveal`} data-work>
+              <div class={`work__frame mockup mockup--${item.mockup}`}>
+                <div class="mockup__screen">
+                  <img
+                    class="work__img"
+                    src={item.image}
+                    alt={item.alt}
+                    loading="lazy"
+                    onload="this.classList.add('is-loaded')"
+                  />
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <div class="work__group work__group--social">
+      <header class="work__header reveal" data-reveal="up">
+        <span class="work__num">03</span>
+        <div>
+          <h3 class="work__title">Social Media Management</h3>
+          <p class="work__cat">Managed social pages and content examples</p>
+        </div>
+      </header>
+
+      <div class="work__social">
+        {socialPreviews.map((item) => (
+          <article class="work__item work__item--social reveal" data-work>
+            <div class="work__frame mockup mockup--phone">
+              <div class="mockup__notch" aria-hidden="true"></div>
+              <div class="mockup__screen">
+                <img
+                  class="work__img"
+                  src={item.image}
+                  alt={item.alt}
+                  loading="lazy"
+                  onload="this.classList.add('is-loaded')"
+                />
+              </div>
+            </div>
+            <div class="work__social-meta">
+              <h4 class="work__social-title">{item.title}</h4>
+              <p class="work__social-cat">{item.category}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work__group + .work__group {
+    margin-top: 7rem;
+  }
+
+  .work__header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .work__num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+
+  .work__title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+
+  .work__cat {
+    margin-top: 0.2rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+
+  .work__gallery--pair {
+    display: grid;
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .work__gallery--showcase {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .work__item {
+    min-width: 0;
+  }
+
+  .work__item--featured,
+  .work__item--portrait {
+    display: flex;
+  }
+
+  .work__frame {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #161616;
+  }
+
+  .work__item--featured .work__frame,
+  .work__item--portrait .work__frame {
+    height: 100%;
+  }
+
+  .mockup__screen {
+    overflow: hidden;
+    background: #111;
+  }
+
+  .work__item--featured .mockup__screen,
+  .work__item--portrait .mockup__screen {
+    aspect-ratio: 3 / 2;
+    height: 100%;
+  }
+
+  .work__item--portrait .mockup__screen {
+    aspect-ratio: 3 / 4;
+  }
+
+  .work__item--showcase .work__frame {
+    max-width: 560px;
+  }
+
+  .work__item--showcase .mockup__screen {
+    aspect-ratio: 819 / 1024;
+  }
+
+  .work__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.45s var(--ease), opacity 0.35s var(--ease);
+  }
+
+  .work__img.is-loaded {
+    opacity: 1;
+  }
+
+  .work__item--featured .work__img {
+    object-position: center;
+  }
+
+  .work__item--portrait .work__img {
+    object-position: center;
+  }
+
+  .work__item--showcase .work__img {
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .work__item:hover .work__img.is-loaded {
+      transform: scale(1.035) translateY(-2px);
+    }
+  }
+
+  .work__social {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.75rem 1.25rem;
+  }
+
+  .work__item--social {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.9rem;
+  }
+
+  .mockup--phone {
+    width: min(100%, 300px);
+    overflow: hidden;
+    border-radius: 28px;
+    padding: 11px 10px 13px;
+    background: #141414;
+    border: 1px solid rgba(244, 241, 234, 0.16);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.38);
+  }
+
+  .mockup__notch {
+    width: 68px;
+    height: 5px;
+    margin: 3px auto 8px;
+    border-radius: 99px;
+    background: #2c2c2c;
+  }
+
+  .mockup--phone .mockup__screen {
+    aspect-ratio: 9 / 19.5;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .mockup--phone .work__img {
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .work__social-title {
+    font-size: 1.05rem;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+  }
+
+  .work__social-cat {
+    margin-top: 0.15rem;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 900px) {
+    .work__group + .work__group {
+      margin-top: 4.5rem;
+    }
+
+    .work__gallery--pair {
+      grid-template-columns: 1fr;
+    }
+
+    .work__item--featured .mockup__screen {
+      aspect-ratio: 3 / 2;
+    }
+
+    .work__item--portrait .mockup__screen {
+      aspect-ratio: 3 / 4;
+    }
+
+    .work__item--showcase .work__frame {
+      max-width: 100%;
+    }
+
+    .work__social {
+      grid-template-columns: 1fr;
+    }
+
+    .mockup--phone {
+      width: min(100%, 280px);
+    }
+  }
+
+  @media (max-width: 1100px) and (min-width: 901px) {
+    .work__social {
+      gap: 1.5rem 1rem;
+    }
+
+    .mockup--phone {
+      width: min(100%, 260px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work__item:hover .work__img {
+      transform: none;
+    }
+  }
+</style>

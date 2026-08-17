@@ -1,0 +1,116 @@
+---
+import { experience } from '../data/experience';
+---
+
+<section class="section experience" id="experience" data-section="experience">
+  <div class="wrap">
+    <p class="section-kicker reveal" data-reveal="up">02 / EXPERIENCE</p>
+    <h2 class="section-title reveal" data-reveal="up">Work Experience</h2>
+    <div class="experience__list">
+      {experience.map((item) => (
+        <article class="experience__row reveal" data-stagger>
+          <div class="experience__identity">
+            <h3 class="experience__company">{item.company}</h3>
+            <p class="experience__role">{item.role}</p>
+          </div>
+          <p class="experience__summary">{item.summary}</p>
+          <time class="experience__dates">{item.dates}</time>
+          <span class="experience__arrow" aria-hidden="true">→</span>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .experience__row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.05fr 1.45fr auto;
+    gap: 2.5rem;
+    align-items: start;
+    padding-block: 2.5rem;
+    border-top: 1px solid var(--line);
+    transition: border-color 0.35s var(--ease);
+  }
+
+  .experience__row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .experience__company {
+    font-size: 1.4rem;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    transition: color 0.3s var(--ease), transform 0.35s var(--ease);
+  }
+
+  .experience__role {
+    color: var(--text-muted);
+    font-size: 1rem;
+    margin-top: 0.35rem;
+  }
+
+  .experience__dates {
+    color: var(--text-dim);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    padding-top: 0.35rem;
+  }
+
+  .experience__summary {
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    transition: color 0.3s var(--ease);
+  }
+
+  .experience__arrow {
+    position: absolute;
+    left: -1.4rem;
+    top: 2.7rem;
+    color: var(--accent);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+
+  .experience__row:hover {
+    border-color: var(--line-strong);
+  }
+
+  .experience__row:hover .experience__company {
+    color: var(--accent);
+    transform: translateX(5px);
+  }
+
+  .experience__row:hover .experience__summary {
+    color: var(--text-muted);
+  }
+
+  .experience__row:hover .experience__arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  @media (max-width: 900px) {
+    .experience__row {
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      padding-block: 1.8rem;
+    }
+
+    .experience__arrow {
+      display: none;
+    }
+
+    .experience__row:hover .experience__company {
+      transform: none;
+    }
+  }
+</style>

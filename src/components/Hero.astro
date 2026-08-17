@@ -1,249 +1,155 @@
 ---
-import { site, contact } from '../data/portfolio';
+import { site } from '../data/site';
 ---
 
-<section class="hero" id="hero">
-  <div class="spotlight hero__spotlight"></div>
-  <div class="container hero__inner">
-    <div class="hero__content">
-      <p class="hero__eyebrow mono-label reveal">{site.heroEyebrow}</p>
-
-      <div class="hero__identity reveal reveal-delay-1">
-        <h1 class="hero__name">{site.name}</h1>
-        <p class="hero__title">{site.title}</p>
-      </div>
-
-      <p class="hero__headline reveal reveal-delay-2">{site.heroHeadline}</p>
-      <p class="hero__sub reveal reveal-delay-2">{site.heroSubheadline}</p>
-
-      <div class="hero__tags reveal reveal-delay-3">
-        {site.capabilities.map((cap) => (
-          <span class="tag">{cap}</span>
-        ))}
-      </div>
-
-      <div class="hero__actions reveal reveal-delay-4">
-        <a href="/#work" class="btn btn--primary">View Selected Work</a>
-        <a href="/#contact" class="btn btn--secondary">Contact Me</a>
-        <a href={contact.cvPath} class="btn btn--ghost" download>Download CV</a>
-      </div>
+<section class="hero" id="top" data-section="hero">
+  <div class="wrap hero__inner">
+    <div class="hero__media" data-hero="media">
+      <img src={site.portrait} alt={`${site.name} portrait`} data-hero-img />
     </div>
 
-    <div class="hero__visual reveal reveal-delay-3" aria-hidden="true">
-      <div class="hero__composition">
-        <div class="hero__grid-card hero__grid-card--1">
-          <span class="mono-label">Brand</span>
-          <div class="hero__card-line"></div>
-        </div>
-        <div class="hero__grid-card hero__grid-card--2">
-          <span class="mono-label">Content</span>
-          <div class="hero__card-line hero__card-line--gradient"></div>
-        </div>
-        <div class="hero__grid-card hero__grid-card--3">
-          <span class="mono-label">Growth</span>
-          <div class="hero__card-line"></div>
-        </div>
-        <div class="hero__grid-card hero__grid-card--4">
-          <div class="hero__preview">
-            <div class="hero__preview-bar">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="hero__preview-body">
-              <div class="hero__preview-block"></div>
-              <div class="hero__preview-block hero__preview-block--accent"></div>
-              <div class="hero__preview-row">
-                <div class="hero__preview-thumb"></div>
-                <div class="hero__preview-thumb"></div>
-                <div class="hero__preview-thumb"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="hero__copy">
+      <p class="section-kicker reveal" data-hero="eyebrow">{site.eyebrow}</p>
+      <h1 class="hero__name reveal" data-hero="name">{site.name}</h1>
+      <p class="hero__title reveal" data-hero="title">{site.title}</p>
+      <p class="hero__intro reveal" data-hero="intro">{site.intro}</p>
+      <p class="hero__meta reveal" data-hero="meta">{site.location}</p>
+      <a href="#work" class="hero__scroll reveal" data-hero="scroll">
+        Scroll to see my work <span class="arrow">↓</span>
+      </a>
     </div>
   </div>
 </section>
 
 <style>
   .hero {
-    position: relative;
-    padding-block: var(--space-4xl) var(--space-3xl);
-    overflow: hidden;
-  }
-
-  .hero__spotlight {
-    top: -200px;
-    right: -100px;
+    padding-top: calc(var(--nav-h) + 4.5rem);
+    padding-bottom: 3.5rem;
   }
 
   .hero__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-3xl);
-    align-items: center;
+    grid-template-columns: minmax(260px, 440px) minmax(0, 1fr);
+    gap: 4.75rem;
+    align-items: start;
   }
 
-  .hero__eyebrow {
-    margin-bottom: var(--space-lg);
+  .hero__media {
+    overflow: hidden;
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 3 / 4;
+    border-radius: 8px;
   }
 
-  .hero__identity {
-    margin-bottom: var(--space-xl);
+  .hero__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    will-change: transform;
+  }
+
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2.75rem;
+    min-width: 0;
   }
 
   .hero__name {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    font-weight: 600;
-    margin-bottom: 0.25rem;
+    font-size: clamp(3.75rem, 6.5vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    margin-bottom: 1.2rem;
   }
 
   .hero__title {
-    font-size: 1rem;
-    color: var(--text-secondary);
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+    color: var(--text-muted);
+    margin-bottom: 1.55rem;
   }
 
-  .hero__headline {
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    font-weight: 600;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--text-primary);
-    margin-bottom: var(--space-lg);
-    max-width: 640px;
+  .hero__intro {
+    font-size: clamp(1.28rem, 1.95vw, 1.65rem);
+    max-width: 22ch;
+    line-height: 1.4;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.45rem;
   }
 
-  .hero__sub {
-    font-size: 1.0625rem;
-    max-width: 540px;
-    margin-bottom: var(--space-xl);
-    line-height: 1.7;
+  .hero__meta {
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    margin-bottom: 2.25rem;
   }
 
-  .hero__tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    margin-bottom: var(--space-2xl);
-  }
-
-  .hero__actions {
-    display: flex;
-    flex-wrap: wrap;
+  .hero__scroll {
+    display: inline-flex;
     align-items: center;
-    gap: var(--space-md);
+    gap: 0.55rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: color 0.3s var(--ease);
+    width: fit-content;
   }
 
-  /* Visual Composition */
-  .hero__composition {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: var(--space-md);
-    position: relative;
+  .hero__scroll:hover {
+    color: var(--accent);
   }
 
-  .hero__grid-card {
-    padding: var(--space-lg);
-    background: var(--bg-surface);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
-    transition: border-color var(--transition-base);
+  .hero__scroll .arrow {
+    transition: transform 0.35s var(--ease);
   }
 
-  .hero__grid-card:hover {
-    border-color: var(--border-hover);
+  .hero__scroll:hover .arrow {
+    transform: translateY(4px);
   }
 
-  .hero__grid-card--4 {
-    grid-column: 1 / -1;
-    padding: 0;
-    overflow: hidden;
-  }
-
-  .hero__card-line {
-    height: 3px;
-    background: var(--border-subtle);
-    border-radius: 2px;
-    margin-top: var(--space-md);
-  }
-
-  .hero__card-line--gradient {
-    background: var(--gradient-accent);
-  }
-
-  .hero__preview-bar {
-    display: flex;
-    gap: 6px;
-    padding: 10px 14px;
-    background: var(--bg-elevated);
-    border-bottom: 1px solid var(--border-subtle);
-  }
-
-  .hero__preview-bar span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--border-subtle);
-  }
-
-  .hero__preview-bar span:first-child { background: rgba(239, 68, 68, 0.4); }
-  .hero__preview-bar span:nth-child(2) { background: rgba(234, 179, 8, 0.4); }
-  .hero__preview-bar span:nth-child(3) { background: rgba(34, 197, 94, 0.4); }
-
-  .hero__preview-body {
-    padding: var(--space-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .hero__preview-block {
-    height: 12px;
-    background: var(--border-subtle);
-    border-radius: 2px;
-    width: 70%;
-  }
-
-  .hero__preview-block--accent {
-    width: 45%;
-    background: var(--gradient-accent);
-    opacity: 0.6;
-    height: 8px;
-  }
-
-  .hero__preview-row {
-    display: flex;
-    gap: var(--space-sm);
-    margin-top: var(--space-sm);
-  }
-
-  .hero__preview-thumb {
-    flex: 1;
-    height: 48px;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-  }
-
-  @media (max-width: 968px) {
+  @media (max-width: 1100px) {
     .hero__inner {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(240px, 380px) minmax(0, 1fr);
+      gap: 3.25rem;
     }
 
-    .hero__visual {
-      order: -1;
-      max-width: 400px;
+    .hero__media {
+      max-width: 380px;
+    }
+
+    .hero__copy {
+      padding-top: 1.75rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      padding-top: calc(var(--nav-h) + 2rem);
+      padding-bottom: 2.25rem;
+    }
+
+    .hero__inner {
+      grid-template-columns: 1fr;
+      gap: 1.35rem;
+    }
+
+    .hero__media {
+      max-width: 260px;
+      aspect-ratio: 3 / 4;
+    }
+
+    .hero__copy {
+      padding-top: 0;
+    }
+
+    .hero__intro {
+      max-width: none;
     }
   }
 
   @media (max-width: 480px) {
-    .hero__actions {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .hero__actions .btn {
-      justify-content: center;
+    .hero__media {
+      max-width: 220px;
     }
   }
 </style>

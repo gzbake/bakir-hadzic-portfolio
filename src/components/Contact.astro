@@ -1,0 +1,197 @@
+---
+import { contact } from '../data/site';
+
+const rows = [
+  {
+    label: 'Email',
+    value: contact.email,
+    href: `mailto:${contact.email}`,
+    external: false,
+  },
+  {
+    label: 'Phone / WhatsApp / Viber',
+    value: contact.phone,
+    href: contact.whatsapp,
+    external: true,
+  },
+  {
+    label: 'Telegram',
+    value: contact.telegramLabel,
+    href: contact.telegram,
+    external: true,
+  },
+  {
+    label: 'LinkedIn',
+    value: contact.linkedinLabel,
+    href: contact.linkedin,
+    external: true,
+  },
+];
+---
+
+<section class="section contact" id="contact" data-section="contact">
+  <div class="wrap contact__layout">
+    <div class="contact__intro">
+      <p class="section-kicker reveal" data-contact="kicker">04 / CONTACT</p>
+      <h2 class="contact__heading reveal" data-contact="heading">Contact Me</h2>
+      <p class="contact__lead reveal" data-contact="lead">
+        If you think I could be a good fit for your team, feel free to reach out.
+      </p>
+    </div>
+
+    <div class="contact__list">
+      {rows.map((row) => (
+        <a
+          class="contact__row reveal"
+          data-contact="row"
+          href={row.href}
+          target={row.external ? '_blank' : undefined}
+          rel={row.external ? 'noopener noreferrer' : undefined}
+        >
+          <span class="contact__label">{row.label}</span>
+          <span class="contact__value">{row.value}</span>
+          <span class="contact__arrow" aria-hidden="true">↗</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    padding-top: 8rem;
+    padding-bottom: 7rem;
+    background:
+      radial-gradient(48% 42% at 92% 88%, rgba(255, 92, 53, 0.1), transparent 62%);
+  }
+
+  .contact__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact__heading {
+    font-size: clamp(2.75rem, 5vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact__lead {
+    font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+    color: var(--text-muted);
+    letter-spacing: -0.025em;
+    line-height: 1.4;
+    max-width: 18ch;
+  }
+
+  .contact__list {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .contact__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1.25rem;
+    align-items: center;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--line);
+    transition:
+      transform 0.4s var(--ease),
+      border-color 0.4s var(--ease),
+      background-color 0.4s var(--ease);
+  }
+
+  .contact__row:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .contact__label {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.45rem;
+  }
+
+  .contact__value {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: clamp(1.35rem, 2.3vw, 1.95rem);
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    transition: color 0.4s var(--ease);
+  }
+
+  .contact__arrow {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    color: var(--accent);
+    font-size: 1.35rem;
+    line-height: 1;
+    transition: transform 0.4s var(--ease);
+  }
+
+  .contact__row:hover {
+    transform: translateX(4px);
+    border-color: var(--line-strong);
+    background: linear-gradient(90deg, rgba(255, 92, 53, 0.06), transparent 72%);
+  }
+
+  .contact__row:hover + .contact__row,
+  .contact__row:last-child:hover {
+    border-top-color: var(--line-strong);
+  }
+
+  .contact__row:last-child:hover {
+    border-bottom-color: var(--line-strong);
+  }
+
+  .contact__row:hover .contact__value {
+    color: var(--accent);
+  }
+
+  .contact__row:hover .contact__arrow {
+    transform: translate(5px, -4px);
+  }
+
+  @media (max-width: 900px) {
+    .contact {
+      min-height: 0;
+      display: block;
+      padding-top: 5.5rem;
+      padding-bottom: 4.5rem;
+    }
+
+    .contact__layout {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .contact__lead {
+      max-width: 28ch;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .contact__value {
+      font-size: 1.35rem;
+    }
+
+    .contact__row:hover {
+      transform: none;
+      background: none;
+    }
+  }
+</style>

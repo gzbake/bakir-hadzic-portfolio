@@ -1,244 +1,172 @@
 ---
-import { navLinks, contact } from '../data/portfolio';
+import { navLinks, contact, site } from '../data/site';
 ---
 
-<header class="header" id="site-header">
-  <div class="header__inner container">
-    <a href="/" class="header__logo" aria-label="Bakir Hadžić — Home">
-      <span class="header__monogram">BH</span>
-      <span class="header__name">Bakir Hadžić</span>
-    </a>
+<header class="nav" id="site-nav">
+  <div class="nav__inner wrap">
+    <a href="#top" class="nav__logo">{site.name}</a>
 
-    <nav class="header__nav" aria-label="Main navigation">
-      <ul class="header__links">
-        {navLinks.map((link) => (
-          <li>
-            <a href={link.href} class="header__link">{link.label}</a>
-          </li>
-        ))}
-      </ul>
-      <a href={contact.cvPath} class="btn btn--nav header__cv" download>
-        Download CV
-      </a>
+    <nav class="nav__links" aria-label="Main">
+      {navLinks.map((link) => (
+        <a href={link.href} class="nav__link" data-nav-link={link.href}>
+          {link.label}
+        </a>
+      ))}
+      <a href={contact.cvPath} class="nav__cv" download>CV</a>
     </nav>
 
-    <button class="header__toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <span class="header__toggle-bar"></span>
-      <span class="header__toggle-bar"></span>
+    <button class="nav__toggle" id="nav-toggle" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
     </button>
   </div>
 
-  <nav class="header__mobile" id="mobile-nav" aria-label="Mobile navigation" hidden>
-    <ul class="header__mobile-links">
-      {navLinks.map((link) => (
-        <li>
-          <a href={link.href} class="header__mobile-link">{link.label}</a>
-        </li>
-      ))}
-      <li>
-        <a href={contact.cvPath} class="btn btn--nav" download>Download CV</a>
-      </li>
-    </ul>
+  <nav class="nav__mobile" id="mobile-nav" hidden>
+    {navLinks.map((link) => (
+      <a href={link.href} class="nav__mobile-link">{link.label}</a>
+    ))}
+    <a href={contact.cvPath} class="nav__mobile-link" download>Download CV</a>
   </nav>
 </header>
 
-<script>
-  const header = document.getElementById('site-header');
-  const toggle = document.getElementById('nav-toggle');
-  const mobileNav = document.getElementById('mobile-nav');
-
-  if (header) {
-    const onScroll = () => {
-      header.classList.toggle('header--scrolled', window.scrollY > 20);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  }
-
-  if (toggle && mobileNav) {
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!isOpen));
-      mobileNav.hidden = isOpen;
-      toggle.classList.toggle('header__toggle--open', !isOpen);
-    });
-
-    mobileNav.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        toggle.setAttribute('aria-expanded', 'false');
-        mobileNav.hidden = true;
-        toggle.classList.remove('header__toggle--open');
-      });
-    });
-  }
-</script>
-
 <style>
-  .header {
+  .nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 100;
-    height: var(--nav-height);
-    transition: background var(--transition-base), backdrop-filter var(--transition-base), border-color var(--transition-base);
+    z-index: 50;
+    height: var(--nav-h);
+    transition: background 0.35s var(--ease), border-color 0.35s var(--ease), backdrop-filter 0.35s var(--ease);
     border-bottom: 1px solid transparent;
   }
 
-  .header--scrolled {
-    background: var(--bg-glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom-color: var(--border-subtle);
+  .nav.is-solid {
+    background: rgba(17, 17, 17, 0.78);
+    backdrop-filter: blur(18px);
+    border-bottom-color: var(--line);
   }
 
-  .header__inner {
+  .nav__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100%;
   }
 
-  .header__logo {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
+  .nav__logo {
     font-weight: 600;
-    transition: opacity var(--transition-fast);
+    letter-spacing: -0.035em;
+    font-size: 1.15rem;
   }
 
-  .header__logo:hover {
-    opacity: 0.85;
-  }
-
-  .header__monogram {
+  .nav__links {
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    border: 1px solid var(--border-hover);
-    border-radius: var(--radius-sm);
-    color: var(--accent-cyan);
+    gap: 2.4rem;
   }
 
-  .header__name {
+  .nav__link {
+    position: relative;
     font-size: 0.9375rem;
+    color: var(--text-muted);
+    transition: color 0.3s var(--ease);
   }
 
-  .header__nav {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xl);
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 100%;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease);
   }
 
-  .header__links {
-    display: flex;
-    align-items: center;
-    gap: var(--space-lg);
+  .nav__link:hover,
+  .nav__link.is-active {
+    color: var(--text);
   }
 
-  .header__link {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    transition: color var(--transition-fast);
+  .nav__link.is-active {
+    color: var(--accent);
+  }
+
+  .nav__link.is-active::after,
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+
+  .nav__cv {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    transition: color 0.3s var(--ease);
+  }
+
+  .nav__cv:hover {
+    color: var(--accent);
+  }
+
+  .nav__toggle {
+    display: none;
+    width: 28px;
+    height: 18px;
     position: relative;
   }
 
-  .header__link::after {
-    content: '';
+  .nav__toggle span {
     position: absolute;
-    bottom: -4px;
     left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--accent-cyan);
-    transition: width var(--transition-base);
-  }
-
-  .header__link:hover {
-    color: var(--text-primary);
-  }
-
-  .header__link:hover::after {
     width: 100%;
+    height: 1px;
+    background: var(--text);
+    transition: transform 0.3s var(--ease);
   }
 
-  .header__toggle {
+  .nav__toggle span:first-child { top: 4px; }
+  .nav__toggle span:last-child { bottom: 4px; }
+
+  .nav__toggle.is-open span:first-child {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  .nav__toggle.is-open span:last-child {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  .nav__mobile {
     display: none;
     flex-direction: column;
-    justify-content: center;
-    gap: 6px;
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+    gap: 0.25rem;
+    padding: 0.5rem 1.5rem 1.5rem;
+    background: rgba(17, 17, 17, 0.96);
+    border-bottom: 1px solid var(--line);
   }
 
-  .header__toggle-bar {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: var(--text-primary);
-    transition: transform var(--transition-base), opacity var(--transition-base);
-  }
-
-  .header__toggle--open .header__toggle-bar:first-child {
-    transform: translateY(4px) rotate(45deg);
-  }
-
-  .header__toggle--open .header__toggle-bar:last-child {
-    transform: translateY(-4px) rotate(-45deg);
-  }
-
-  .header__mobile {
-    position: absolute;
-    top: var(--nav-height);
-    left: 0;
-    right: 0;
-    background: var(--bg-glass);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-subtle);
-    padding: var(--space-lg);
-  }
-
-  .header__mobile-links {
+  .nav__mobile.is-open {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
   }
 
-  .header__mobile-link {
-    display: block;
-    padding: var(--space-sm) 0;
-    font-size: 1rem;
-    color: var(--text-secondary);
-    transition: color var(--transition-fast);
+  .nav__mobile-link {
+    padding: 0.8rem 0;
+    font-size: 1.15rem;
+    color: var(--text-muted);
   }
 
-  .header__mobile-link:hover {
-    color: var(--text-primary);
+  @media (max-width: 900px) {
+    .nav__links { display: none; }
+    .nav__toggle { display: block; }
   }
 
-  @media (max-width: 768px) {
-    .header__nav {
-      display: none;
-    }
-
-    .header__toggle {
-      display: flex;
-    }
-
-    .header__name {
-      display: none;
-    }
-  }
-
-  @media (min-width: 769px) {
-    .header__mobile {
+  @media (min-width: 901px) {
+    .nav__mobile,
+    .nav__mobile.is-open {
       display: none !important;
     }
   }
