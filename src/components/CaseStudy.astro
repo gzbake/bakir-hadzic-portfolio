@@ -526,6 +526,11 @@ const activeCategory = study.categories[0];
       min-height: 0;
     }
 
+    .case__story {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
     .case__slide {
       aspect-ratio: 4 / 3;
     }
@@ -544,6 +549,71 @@ const activeCategory = study.categories[0];
 
     .case__stats {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 700px) {
+    .case {
+      margin-bottom: 3.5rem;
+    }
+
+    .work__title {
+      font-size: 1.35rem;
+    }
+
+    .case__hero,
+    .case__hero-copy {
+      min-height: 260px;
+    }
+
+    .case__hero-copy {
+      padding: 1.35rem 1.1rem;
+    }
+
+    .case__headline {
+      font-size: clamp(0.95rem, 4.2vw, 1.2rem);
+    }
+
+    .case__stats {
+      display: none;
+    }
+
+    .case__cats {
+      gap: 0.35rem;
+      margin: 1rem 0 0.9rem;
+    }
+
+    .case__cat {
+      padding: 0.4rem 0.7rem;
+      font-size: 0.74rem;
+    }
+
+    .case__panel {
+      padding: 1.2rem 1.05rem 1.15rem;
+      gap: 1.25rem;
+    }
+
+    .case__problems li,
+    .case__solutions li {
+      font-size: 0.78rem;
+      white-space: normal;
+    }
+
+    .case__quote p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .case__nav {
+      width: 34px;
+      height: 34px;
+    }
+
+    .case__nav--prev { left: 0.45rem; }
+    .case__nav--next { right: 0.45rem; }
+
+    .case__slide {
+      aspect-ratio: 4 / 3;
     }
   }
 

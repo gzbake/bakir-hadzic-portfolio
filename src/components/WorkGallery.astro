@@ -284,6 +284,41 @@ const otherWork = workGroups.filter((group) => group.title !== 'Inat Bosanski');
     }
   }
 
+  @media (max-width: 700px) {
+    .work__group + .work__group {
+      margin-top: 3.25rem;
+    }
+
+    .work__header {
+      gap: 0.85rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .work__title {
+      font-size: 1.35rem;
+    }
+
+    .work__cat {
+      font-size: 0.88rem;
+    }
+
+    .work__social {
+      justify-items: center;
+      gap: 2rem 1rem;
+    }
+
+    .work__item--social {
+      align-items: center;
+      text-align: center;
+    }
+
+    .mockup--phone {
+      width: 90%;
+      max-width: 90%;
+      margin-inline: auto;
+    }
+  }
+
   @media (max-width: 1100px) and (min-width: 901px) {
     .work__social {
       gap: 1.5rem 1rem;

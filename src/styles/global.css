@@ -53,13 +53,25 @@ body::after {
   background-size: 140px 140px;
 }
 
-#bg-canvas {
+#ripple-wrap {
   position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0c0c0c;
+  pointer-events: none;
+}
+
+#ripple-canvas {
+  position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
-  pointer-events: none;
+  display: block;
+  background: #0c0c0c;
+  touch-action: pan-y;
 }
 
 .bg-fallback {
@@ -67,70 +79,7 @@ body::after {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background:
-    radial-gradient(58% 46% at 78% 6%, rgba(255, 92, 53, 0.16), transparent 62%),
-    radial-gradient(48% 38% at 8% 86%, rgba(72, 32, 18, 0.38), transparent 64%),
-    radial-gradient(40% 32% at 52% 48%, rgba(255, 92, 53, 0.05), transparent 70%),
-    var(--bg);
-}
-
-.bg-atmosphere {
-  position: fixed;
-  inset: -8%;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  transform: translate3d(0, calc(var(--bg-shift, 0) * -36px), 0);
-  will-change: transform;
-}
-
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: 0.7;
-}
-
-.bg-orb--a {
-  width: min(72vw, 920px);
-  height: min(72vw, 920px);
-  top: -22%;
-  right: -16%;
-  background: radial-gradient(circle, rgba(255, 92, 53, 0.18), transparent 68%);
-  animation: orb-drift-a 48s ease-in-out infinite;
-}
-
-.bg-orb--b {
-  width: min(58vw, 760px);
-  height: min(58vw, 760px);
-  bottom: -18%;
-  left: -14%;
-  background: radial-gradient(circle, rgba(78, 34, 18, 0.42), transparent 70%);
-  animation: orb-drift-b 62s ease-in-out infinite;
-}
-
-.bg-orb--c {
-  width: min(42vw, 540px);
-  height: min(42vw, 540px);
-  top: 38%;
-  left: 28%;
-  background: radial-gradient(circle, rgba(255, 140, 80, 0.07), transparent 72%);
-  animation: orb-drift-c 40s ease-in-out infinite;
-}
-
-@keyframes orb-drift-a {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-7%, 9%) scale(1.08); }
-}
-
-@keyframes orb-drift-b {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(8%, -6%) scale(1.06); }
-}
-
-@keyframes orb-drift-c {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.55; }
-  50% { transform: translate(4%, 7%) scale(1.12); opacity: 0.85; }
+  background: #0c0c0c;
 }
 
 img {
@@ -293,14 +242,57 @@ section {
   body::after {
     opacity: 0.02;
   }
+}
 
-  .bg-orb {
-    filter: blur(70px);
-    opacity: 0.45;
+@media (max-width: 700px) {
+  #ripple-wrap,
+  #ripple-canvas,
+  .bg-fallback {
+    left: 0;
+    right: 0;
+    width: 100vw;
+    max-width: none;
+    min-height: 100dvh;
+    min-height: 100svh;
+  }
+  :root {
+    --nav-h: 64px;
+    --page-pad: 24px;
+    --text-body: 1rem;
   }
 
-  .bg-orb--c {
-    display: none;
+  body {
+    font-size: 16px;
+  }
+
+  .wrap {
+    width: min(var(--max), calc(100% - 48px));
+  }
+
+  .section {
+    padding-top: 7rem;
+    padding-bottom: 0;
+  }
+
+  .section-kicker {
+    font-size: 0.68rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.85rem, 8.4vw, 2.35rem);
+    letter-spacing: -0.04em;
+    margin-bottom: 1.5rem;
+  }
+
+  p:not(.section-kicker):not(.hero__title):not(.hero__meta):not(.case__stat-label):not(.case__stat-value) {
+    font-size: var(--text-body);
+    line-height: 1.6;
+  }
+
+  .btn {
+    min-height: 44px;
+    padding: 0.82rem 1.15rem;
   }
 }
 
@@ -311,15 +303,6 @@ section {
 
   .reveal {
     opacity: 1;
-  }
-
-  .bg-atmosphere {
-    transform: none;
-  }
-
-  .bg-orb {
-    animation: none;
-    opacity: 0.4;
   }
 
   *,

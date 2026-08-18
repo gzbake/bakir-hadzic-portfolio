@@ -72,11 +72,57 @@ import { skillGroups } from '../data/skills';
 
   @media (max-width: 700px) {
     .skills {
-      padding-top: 4.5rem;
+      padding-top: 7rem;
+      padding-bottom: 0;
     }
 
     .skills__grid {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      padding: 0.9rem 0.85rem 0.95rem;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .skills__group {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      background: none;
+    }
+
+    .skills__group h3 {
+      margin-bottom: 0.4rem;
+      font-size: 0.62rem;
+    }
+
+    .skills__group ul {
+      gap: 0.32rem;
+    }
+
+    .skills__group li {
+      padding: 0.22rem 0.5rem;
+      font-size: 0.72rem;
+      animation: skill-in 0.55s var(--ease) both;
+    }
+
+    .skills__group:nth-child(1) li { animation-delay: 0.02s; }
+    .skills__group:nth-child(2) li { animation-delay: 0.08s; }
+    .skills__group:nth-child(3) li { animation-delay: 0.14s; }
+    .skills__group:nth-child(4) li { animation-delay: 0.2s; }
+    .skills__group:nth-child(5) li { animation-delay: 0.26s; }
+  }
+
+  @keyframes skill-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
   }
 </style>

@@ -29,7 +29,8 @@ export function initNavigation() {
     toggle.setAttribute('aria-expanded', String(!open));
     toggle.classList.toggle('is-open', !open);
     mobile?.classList.toggle('is-open', !open);
-    if (mobile) mobile.hidden = open;
+    nav?.classList.toggle('is-open', !open);
+    nav?.classList.toggle('is-solid', !open || window.scrollY > 12);
   });
 
   mobile?.querySelectorAll('a').forEach((a) => {
@@ -37,7 +38,8 @@ export function initNavigation() {
       toggle?.setAttribute('aria-expanded', 'false');
       toggle?.classList.remove('is-open');
       mobile?.classList.remove('is-open');
-      mobile.hidden = true;
+      nav?.classList.remove('is-open');
+      nav?.classList.toggle('is-solid', window.scrollY > 12);
     });
   });
 

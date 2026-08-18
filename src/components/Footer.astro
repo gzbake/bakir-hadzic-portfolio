@@ -31,4 +31,10 @@ const year = new Date().getFullYear();
       gap: 0.35rem;
     }
   }
+
+  @media (max-width: 700px) {
+    .footer {
+      padding: 0 0 calc(1.75rem + env(safe-area-inset-bottom));
+    }
+  }
 </style>

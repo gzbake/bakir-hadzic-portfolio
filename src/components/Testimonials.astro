@@ -260,4 +260,55 @@ function formatRating(rating: number) {
       min-height: 400px;
     }
   }
+
+  @media (max-width: 700px) {
+    .testimonials {
+      padding-top: 7rem;
+      padding-bottom: 0;
+    }
+
+    .testimonials__pin {
+      min-height: 0;
+      display: block;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .testimonials__proof {
+      margin: -0.85rem 0 1.35rem;
+      font-size: 0.88rem;
+    }
+
+    .testimonials__viewport,
+    .testimonials__track {
+      min-height: 0;
+      height: auto;
+      perspective: none;
+    }
+
+    .testimonials__viewport {
+      touch-action: pan-y;
+      cursor: grab;
+    }
+
+    .testimonials__track {
+      min-height: 280px;
+    }
+
+    .testimonials__track {
+      min-height: 320px;
+    }
+
+    .testimonials__card {
+      width: 100%;
+      min-height: 0;
+      padding: 1.25rem 1.1rem 1.15rem;
+      gap: 0.9rem;
+    }
+
+    .testimonials__quote {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+  }
 </style>

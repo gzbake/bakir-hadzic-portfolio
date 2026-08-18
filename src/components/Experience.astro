@@ -120,4 +120,39 @@ import { experience } from '../data/experience';
       transform: none;
     }
   }
+
+  @media (max-width: 700px) {
+    .experience__row {
+      padding-block: 1.4rem;
+      padding-right: 1.4rem;
+    }
+
+    .experience__company {
+      font-size: 1.18rem;
+    }
+
+    .experience__summary,
+    .experience__role {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .experience__dates {
+      white-space: normal;
+      font-size: 0.8rem;
+    }
+
+    .experience__arrow {
+      display: block;
+      left: auto;
+      right: 0;
+      top: 1.45rem;
+      opacity: 0.55;
+      transform: none;
+    }
+
+    .experience__row:hover .experience__arrow {
+      transform: none;
+    }
+  }
 </style>

@@ -31,7 +31,7 @@ import { about } from '../data/site';
 
   .about__grid {
     display: grid;
-    grid-template-columns: 0.95fr 1.15fr;
+    grid-template-columns: 1fr 1fr;
     gap: 5rem;
     align-items: start;
   }
@@ -97,6 +97,39 @@ import { about } from '../data/site';
   @media (max-width: 600px) {
     .about {
       padding-top: 90px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .about {
+      padding-top: 7rem;
+      padding-bottom: 0;
+    }
+
+    .about__grid {
+      gap: 0.85rem;
+    }
+
+    .about__heading {
+      font-size: clamp(1.85rem, 8.4vw, 2.35rem);
+      margin-bottom: 0.7rem;
+    }
+
+    .about__lead,
+    .about__copy,
+    .about__copy p,
+    .about__personal p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .about__copy {
+      gap: 0.85rem;
+    }
+
+    .about__copy p:nth-child(n + 4),
+    .about__personal {
+      display: none;
     }
   }
 </style>
