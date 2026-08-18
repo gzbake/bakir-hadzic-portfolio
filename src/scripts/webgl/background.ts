@@ -132,7 +132,7 @@ const bgVert = /* glsl */ `
   }
 `;
 
-function makeNoiseTexture(THREE: typeof import('three')) {
+function makeNoiseTexture(THREE: typeof import('three')): import('three').Texture {
   const size = 128;
   const data = new Uint8Array(size * size * 4);
   for (let i = 0; i < data.length; i += 4) {
@@ -307,7 +307,7 @@ export function createBackground() {
     const simMesh = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), simMaterial);
     simScene.add(simMesh);
 
-    let noiseTex = makeNoiseTexture(THREE);
+    let noiseTex: import('three').Texture = makeNoiseTexture(THREE);
     const bgUniforms = {
       uTime: { value: 0 },
       uPointer: { value: new THREE.Vector2(0, 0) },
