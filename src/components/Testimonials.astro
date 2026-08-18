@@ -1,57 +1,99 @@
 ---
-import { testimonials } from '../data/testimonials';
+import { testimonials, testimonialsAverage, starKind } from '../data/testimonials';
 
-const stars = [1, 2, 3, 4, 5];
+const starSlots = [0, 1, 2, 3, 4];
+const starPath =
+  'M12 2.4l2.47 5.96 6.53.55-4.97 4.28 1.5 6.31L12 16.7 6.47 19.5l1.5-6.31L3 8.91l6.53-.55L12 2.4z';
+
+function formatRating(rating: number) {
+  return rating.toFixed(1);
+}
 ---
 
 <section class="section testimonials" id="testimonials" data-section="testimonials">
-  <div class="wrap">
-    <div class="testimonials__intro">
-      <p class="section-kicker reveal" data-reveal="up">03 / SOCIAL PROOF</p>
-      <h2 class="section-title reveal" data-reveal="up">What collaborators say</h2>
-      <div class="testimonials__proof reveal" data-reveal="up">
-        <span class="stars" aria-label="5 out of 5 stars">
-          {stars.map(() => (
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-              <path d="M12 2.4l2.47 5.96 6.53.55-4.97 4.28 1.5 6.31L12 16.7 6.47 19.5l1.5-6.31L3 8.91l6.53-.55L12 2.4z"></path>
-            </svg>
+  <div class="testimonials__pin" data-testimonial-pin>
+    <div class="wrap">
+    <div class="testimonials__intro reveal" data-reveal="up">
+      <p class="section-kicker">03 / SOCIAL PROOF</p>
+      <h2 class="section-title">Built on Trust</h2>
+      <div class="testimonials__proof">
+        <span class="stars" aria-label={`${formatRating(testimonialsAverage)} out of 5 stars`}>
+          {starSlots.map((index) => (
+            <span class={`star star--${starKind(testimonialsAverage, index)}`}>
+              <svg class="star__empty" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                <path d={starPath}></path>
+              </svg>
+              <span class="star__fill">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+                  <path d={starPath}></path>
+                </svg>
+              </span>
+            </span>
           ))}
         </span>
-        <p><strong>5.0</strong> average from people I’ve worked with</p>
+        <p><strong>{formatRating(testimonialsAverage)}</strong> average from people I’ve worked with</p>
       </div>
     </div>
 
-    <div class="testimonials__grid">
-      {testimonials.map((item) => (
-        <article class="testimonials__card reveal" data-stagger>
-          <div class="testimonials__rating">
-            <span class="stars" aria-hidden="true">
-              {stars.map(() => (
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M12 2.4l2.47 5.96 6.53.55-4.97 4.28 1.5 6.31L12 16.7 6.47 19.5l1.5-6.31L3 8.91l6.53-.55L12 2.4z"></path>
-                </svg>
-              ))}
-            </span>
-            <span>5.0</span>
-          </div>
-          <p class="testimonials__quote">{item.quote}</p>
-          <div class="testimonials__person">
-            <img src={item.image} alt={item.name} />
-            <div>
-              <p class="testimonials__name">{item.name}</p>
-              <p class="testimonials__role">{item.role}</p>
-            </div>
-          </div>
-        </article>
-      ))}
+    <div class="testimonials__slider reveal" data-reveal="up" data-testimonial-slider>
+      <div class="testimonials__viewport" data-testimonial-viewport>
+        <div class="testimonials__track" data-testimonial-track>
+          {testimonials.map((item, index) => (
+            <article
+              class="testimonials__card"
+              data-testimonial-slide
+              aria-hidden={index === 0 ? 'false' : 'true'}
+            >
+              <div class="testimonials__rating">
+                <span class="stars" aria-label={`${formatRating(item.rating)} out of 5 stars`}>
+                  {starSlots.map((slot) => (
+                    <span class={`star star--${starKind(item.rating, slot)}`}>
+                      <svg class="star__empty" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                        <path d={starPath}></path>
+                      </svg>
+                      <span class="star__fill">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                          <path d={starPath}></path>
+                        </svg>
+                      </span>
+                    </span>
+                  ))}
+                </span>
+                <span>{formatRating(item.rating)}</span>
+              </div>
+              <p class="testimonials__quote">{item.quote}</p>
+              <div class="testimonials__person">
+                <img src={item.image} alt="" />
+                <div>
+                  <p class="testimonials__name">{item.name}</p>
+                  <p class="testimonials__role">{item.role}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
     </div>
   </div>
 </section>
 
 <style>
+  .testimonials {
+    padding-block: 0;
+  }
+
+  .testimonials__pin {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: calc(var(--nav-h) + 1.5rem);
+    padding-bottom: 3.5rem;
+  }
+
   .testimonials__intro {
     max-width: 720px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.35rem;
   }
 
   .testimonials__proof {
@@ -59,7 +101,7 @@ const stars = [1, 2, 3, 4, 5];
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem 1rem;
-    margin: -2.25rem 0 3.25rem;
+    margin: -2.25rem 0 2.75rem;
     color: var(--text-muted);
     font-size: 0.95rem;
   }
@@ -69,20 +111,90 @@ const stars = [1, 2, 3, 4, 5];
     font-weight: 600;
   }
 
-  .testimonials__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.15rem;
+  .star {
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+  }
+
+  .testimonials__proof .star {
+    width: 16px;
+    height: 16px;
+  }
+
+  .star__empty {
+    color: rgba(244, 241, 234, 0.16);
+  }
+
+  .star__fill {
+    position: absolute;
+    inset: 0 auto 0 0;
+    overflow: hidden;
+    width: 0;
+    color: var(--accent);
+  }
+
+  .star--full .star__fill {
+    width: 100%;
+  }
+
+  .star--half .star__fill {
+    width: 50%;
+  }
+
+  .star svg {
+    display: block;
+  }
+
+  .testimonials__slider {
+    position: relative;
+  }
+
+  .testimonials__viewport {
+    overflow: hidden;
+    perspective: 1400px;
+    min-height: 380px;
+    cursor: grab;
+  }
+
+  .testimonials__viewport:active {
+    cursor: grabbing;
+  }
+
+  .testimonials__track {
+    position: relative;
+    height: 380px;
+    transform-style: preserve-3d;
   }
 
   .testimonials__card {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: flex;
     flex-direction: column;
     gap: 1.15rem;
-    padding: 1.6rem 1.45rem 1.45rem;
+    width: min(560px, 78%);
+    min-height: 360px;
+    padding: 1.7rem 1.55rem 1.5rem;
     border: 1px solid var(--line);
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.03);
+    border-radius: 18px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.02)),
+      rgba(21, 21, 21, 0.92);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    transform-origin: center center;
+    cursor: pointer;
+    will-change: transform, opacity;
+  }
+
+  .testimonials__card.is-active {
+    border-color: rgba(255, 92, 53, 0.55);
+    box-shadow:
+      0 22px 48px rgba(0, 0, 0, 0.32),
+      0 0 0 1px rgba(255, 92, 53, 0.18),
+      0 18px 50px rgba(255, 92, 53, 0.12);
   }
 
   .testimonials__rating {
@@ -116,6 +228,7 @@ const stars = [1, 2, 3, 4, 5];
     width: 48px;
     height: 48px;
     object-fit: cover;
+    object-position: 50% 18%;
     border-radius: 50%;
   }
 
@@ -131,13 +244,20 @@ const stars = [1, 2, 3, 4, 5];
   }
 
   @media (max-width: 900px) {
-    .testimonials__grid {
-      grid-template-columns: 1fr;
-    }
-
     .testimonials__proof {
       margin-top: -1.25rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .testimonials__viewport,
+    .testimonials__track {
+      min-height: 430px;
+      height: 430px;
+    }
+
+    .testimonials__card {
+      width: 86%;
+      min-height: 400px;
     }
   }
 </style>

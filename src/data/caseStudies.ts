@@ -94,10 +94,10 @@ export const caseStudies: CaseStudy[] = [
     ],
     testimonial: {
       quote:
-        'It finally looked like a real label. The shop, the photos and the content felt like the same brand instead of three disconnected pieces. People could tell it was Inat from the first scroll, whether they landed on the store, the product shots or the socials. That consistency is what we were missing, and Bakir actually delivered it.',
-      name: 'Emin Begić',
-      role: 'Founder at Inat Bosanski',
-      image: '/images/testimonials/emin.png',
+        'What stood out most was how quickly the whole brand started to feel more complete. The website, social media, visuals and content all began to speak the same language instead of feeling like separate pieces. There was a clear understanding of what Inat Bosanski should represent, and that made the brand feel much stronger and more recognizable.',
+      name: 'Zlatko Marjanovic',
+      role: 'Founder at ZedNova',
+      image: '/images/testimonials/zlatko.png',
     },
     gallery: [
       {
