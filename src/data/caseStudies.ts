@@ -101,32 +101,26 @@ export const caseStudies: CaseStudy[] = [
     },
     gallery: [
       {
-        src: '/images/work/inat-lifestyle.png',
-        alt: 'Inat Bosanski apparel and campaign setup',
-        size: 'wide',
-        fit: 'cover',
-      },
-      {
-        src: '/images/work/inat-mockup.png',
-        alt: 'Inat Bosanski website and apparel mockup',
-        size: 'wide',
-        fit: 'cover',
-      },
-      {
-        src: '/images/work/inat-portrait.png',
-        alt: 'Inat Bosanski polo shirt campaign portrait',
-        size: 'portrait',
-        fit: 'cover',
-      },
-      {
         src: '/images/work/inat-studio-showcase.png',
-        alt: 'Inat Studio streetwear e-commerce UI on desktop and mobile',
+        alt: 'Inat Studio streetwear e-commerce website showcase',
+        size: 'wide',
+        fit: 'contain',
+      },
+      {
+        src: '/images/work/inat-polo-showcase.png',
+        alt: 'Inat Bosanski polo shirt shown from front, side and back',
         size: 'wide',
         fit: 'contain',
       },
       {
         src: '/images/work/inat-facebook.png',
         alt: 'Inat Bosanski Facebook page and social presence',
+        size: 'wide',
+        fit: 'cover',
+      },
+      {
+        src: '/images/work/inat-laptop-mockup.png',
+        alt: 'Inat Bosanski storefront on a laptop with apparel samples',
         size: 'wide',
         fit: 'cover',
       },
