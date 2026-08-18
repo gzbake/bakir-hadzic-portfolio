@@ -1,60 +1,42 @@
 ---
+import CaseStudy from './CaseStudy.astro';
 import { socialPreviews, workGroups } from '../data/work';
+
+const otherWork = workGroups.filter((group) => group.title !== 'Inat Bosanski');
 ---
 
 <section class="section work" id="work" data-section="work">
   <div class="wrap">
-    <p class="section-kicker reveal" data-reveal="up">04 / SELECTED WORK</p>
+    <p class="section-kicker reveal" data-reveal="up">05 / SELECTED WORK</p>
     <h2 class="section-title reveal" data-reveal="up">My Previous Work</h2>
 
-    {workGroups.map((group) => (
+    <CaseStudy />
+
+    {otherWork.map((group) => (
       <div class="work__group">
         <header class="work__header reveal" data-reveal="up">
           <span class="work__num">{group.number}</span>
           <div>
-            {group.href ? (
-              <a href={group.href} class="work__title-link">
-                <h3 class="work__title">{group.title}</h3>
-                <span class="work__case">Case study →</span>
-              </a>
-            ) : (
-              <h3 class="work__title">{group.title}</h3>
-            )}
+            <h3 class="work__title">{group.title}</h3>
             <p class="work__cat">{group.category}</p>
           </div>
         </header>
 
         <div class={`work__gallery work__gallery--${group.layout}`}>
           {group.items.map((item) => (
-            group.href ? (
-              <a href={group.href} class={`work__item work__item--${item.size} reveal`} data-work>
-                <div class={`work__frame mockup mockup--${item.mockup}`}>
-                  <div class="mockup__screen">
-                    <img
-                      class="work__img"
-                      src={item.image}
-                      alt={item.alt}
-                      loading="lazy"
-                      onload="this.classList.add('is-loaded')"
-                    />
-                  </div>
+            <article class={`work__item work__item--${item.size} reveal`} data-work>
+              <div class={`work__frame mockup mockup--${item.mockup}`}>
+                <div class="mockup__screen">
+                  <img
+                    class="work__img"
+                    src={item.image}
+                    alt={item.alt}
+                    loading="lazy"
+                    onload="this.classList.add('is-loaded')"
+                  />
                 </div>
-              </a>
-            ) : (
-              <article class={`work__item work__item--${item.size} reveal`} data-work>
-                <div class={`work__frame mockup mockup--${item.mockup}`}>
-                  <div class="mockup__screen">
-                    <img
-                      class="work__img"
-                      src={item.image}
-                      alt={item.alt}
-                      loading="lazy"
-                      onload="this.classList.add('is-loaded')"
-                    />
-                  </div>
-                </div>
-              </article>
-            )
+              </div>
+            </article>
           ))}
         </div>
       </div>
@@ -118,25 +100,6 @@ import { socialPreviews, workGroups } from '../data/work';
     font-size: 1.75rem;
     font-weight: 500;
     letter-spacing: -0.035em;
-  }
-
-  .work__title-link {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 0.75rem 1rem;
-  }
-
-  .work__title-link:hover .work__title {
-    color: var(--accent);
-  }
-
-  .work__case {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
   }
 
   .work__cat {

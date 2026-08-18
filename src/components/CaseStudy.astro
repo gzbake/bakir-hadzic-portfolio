@@ -1,0 +1,575 @@
+---
+import { getCaseStudy } from '../data/caseStudies';
+
+const study = getCaseStudy('inat-bosanski');
+if (!study) throw new Error('Missing Inat Bosanski case study');
+
+const stars = [1, 2, 3, 4, 5];
+const activeCategory = study.categories[0];
+---
+
+<div class="case" id="inat">
+  <header class="work__header reveal" data-reveal="up">
+    <span class="work__num">01</span>
+    <div>
+      <h3 class="work__title">{study.title}</h3>
+      <p class="work__cat">{study.subhead}</p>
+    </div>
+  </header>
+
+  <div class="case__layout">
+    <div class="case__main">
+      <div class="case__hero reveal" data-reveal="up" data-case-hero>
+        <img src={study.heroImage} alt={study.heroAlt} />
+        <div class="case__hero-copy">
+          <h3 class="case__headline">{study.headline}</h3>
+          <p>{study.subhead}</p>
+        </div>
+      </div>
+
+      <div class="case__stats">
+        {study.stats.map((stat) => (
+          <div data-case-stat>
+            <p class="case__stat-value">{stat.value}</p>
+            <p class="case__stat-label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="case__cats" data-case-cats>
+        {study.categories.map((category, index) => (
+          <button
+            type="button"
+            class="case__cat"
+            data-case-cat={category.id}
+            data-heading={category.heading}
+            data-body={category.body}
+            aria-pressed={index === 0 ? 'true' : 'false'}
+          >
+            {category.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="case__copy">
+        <h4 class="case__story-title" data-case-copy-heading>{activeCategory.heading}</h4>
+        <p class="case__story" data-case-copy-body>{activeCategory.body}</p>
+      </div>
+    </div>
+
+    <aside class="case__side">
+      <div class="case__panel" data-case-panel>
+        <section>
+          <h4>Problems</h4>
+          <ul class="case__problems">
+            {study.problems.map((item) => (
+              <li>
+                <span aria-hidden="true">✕</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section>
+          <h4>Solutions</h4>
+          <ul class="case__solutions">
+            {study.solutions.map((item) => (
+              <li>
+                <span aria-hidden="true">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="case__quote">
+          <h4>Testimonial</h4>
+          <div class="stars" aria-label="5 out of 5 stars">
+            {stars.map(() => (
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.4l2.47 5.96 6.53.55-4.97 4.28 1.5 6.31L12 16.7 6.47 19.5l1.5-6.31L3 8.91l6.53-.55L12 2.4z"></path>
+              </svg>
+            ))}
+          </div>
+          <p>{study.testimonial.quote}</p>
+          <div class="case__person">
+            <img src={study.testimonial.image} alt={study.testimonial.name} />
+            <div>
+              <p>{study.testimonial.name}</p>
+              <span>{study.testimonial.role}</span>
+            </div>
+          </div>
+        </section>
+      </div>
+    </aside>
+  </div>
+
+  <div class="case__slider reveal" data-reveal="up" data-case-slider>
+    <div class="case__stage">
+      <button type="button" class="case__nav case__nav--prev" data-case-prev aria-label="Previous image">
+        ←
+      </button>
+      <div class="case__viewport">
+        <div class="case__track" data-case-track>
+          {study.gallery.map((image, index) => (
+            <figure class={`case__slide case__slide--${image.fit ?? 'cover'}`} data-case-slide>
+              <img src={image.src} alt={image.alt} draggable="false" />
+              <span class="case__count">{String(index + 1).padStart(2, '0')} / {String(study.gallery.length).padStart(2, '0')}</span>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <button type="button" class="case__nav case__nav--next" data-case-next aria-label="Next image">
+        →
+      </button>
+    </div>
+    <div class="case__dots" data-case-dots>
+      {study.gallery.map((_, index) => (
+        <button
+          type="button"
+          class="case__dot"
+          data-case-dot={index}
+          aria-label={`Go to image ${index + 1}`}
+          aria-current={index === 0 ? 'true' : 'false'}
+        ></button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style>
+  .case {
+    margin-bottom: 7rem;
+  }
+
+  .work__header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .work__num {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+  }
+
+  .work__title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    letter-spacing: -0.035em;
+  }
+
+  .work__cat {
+    margin-top: 0.2rem;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+  }
+
+  .case__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.9fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .case__hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+    border-radius: 18px;
+  }
+
+  .case__hero img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.45s var(--ease);
+  }
+
+  .case__hero-copy {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 420px;
+    padding: 2.25rem 2rem;
+    background: linear-gradient(180deg, rgba(17, 17, 17, 0.12), rgba(17, 17, 17, 0.82) 72%);
+  }
+
+  .case__headline {
+    max-width: 28ch;
+    font-size: clamp(1rem, 2vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    margin-bottom: 0.45rem;
+  }
+
+  .case__hero-copy p {
+    max-width: 42ch;
+    color: var(--text-muted);
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    line-height: 1.5;
+  }
+
+  .case__stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1.15rem;
+    padding: 1.1rem 0.4rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .case__stat-value {
+    color: var(--accent);
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    transition: transform 0.35s var(--ease);
+  }
+
+  .case__stats > div {
+    transition: transform 0.35s var(--ease);
+  }
+
+  .case__stat-label {
+    margin-top: 0.2rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .case__cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1.25rem 0 1.15rem;
+  }
+
+  .case__cat {
+    padding: 0.42rem 0.78rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    letter-spacing: -0.01em;
+    transition:
+      color 0.25s var(--ease),
+      border-color 0.25s var(--ease),
+      background-color 0.25s var(--ease),
+      transform 0.25s var(--ease);
+  }
+
+  .case__cat[aria-pressed='true'] {
+    color: var(--text);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .case__cat:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .case__copy {
+    min-height: 6.5rem;
+  }
+
+  .case__story-title {
+    max-width: 28ch;
+    font-size: clamp(1rem, 2vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+    margin-bottom: 0.45rem;
+  }
+
+  .case__story {
+    max-width: 58ch;
+    color: var(--text-muted);
+    font-size: clamp(0.7rem, 1vw, 0.85rem);
+    line-height: 1.5;
+  }
+
+  .case__side {
+    position: sticky;
+    top: 110px;
+  }
+
+  .case__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding: 1.6rem 1.45rem 1.5rem;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(21, 21, 21, 0.88);
+  }
+
+  .case__panel h4 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.9rem;
+  }
+
+  .case__problems li,
+  .case__solutions li {
+    display: grid;
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: center;
+    margin-bottom: 0.55rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .case__problems span {
+    color: var(--text-dim);
+  }
+
+  .case__solutions span {
+    color: var(--accent);
+  }
+
+  .case__quote p {
+    margin: 0.85rem 0 1.1rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .case__person {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .case__person img {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .case__person p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.92rem;
+    font-weight: 500;
+  }
+
+  .case__person span {
+    display: block;
+    margin-top: 0.15rem;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  .case__slider {
+    margin-top: 2.5rem;
+  }
+
+  .case__stage {
+    position: relative;
+  }
+
+  .case__viewport {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #161616;
+  }
+
+  .case__track {
+    display: flex;
+    width: 100%;
+    will-change: transform;
+  }
+
+  .case__slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .case__slide img {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    pointer-events: none;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.45s var(--ease);
+  }
+
+  .case__slide--cover img {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .case__slide--contain img {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .case__slide:nth-child(5) img {
+    object-position: top center;
+  }
+
+  .case__count {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+    background: rgba(17, 17, 17, 0.62);
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  .case__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: rgba(17, 17, 17, 0.78);
+    color: var(--text);
+    transform: translateY(-50%);
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  }
+
+  .case__nav--prev { left: 0.85rem; }
+  .case__nav--next { right: 0.85rem; }
+
+  .case__nav:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .case__dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 0.9rem;
+  }
+
+  .case__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(244, 241, 234, 0.22);
+    transition: background-color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+
+  .case__dot[aria-current='true'] {
+    background: var(--accent);
+    transform: scale(1.2);
+  }
+
+  [data-case-stat],
+  [data-case-panel] {
+    opacity: 0;
+  }
+
+  @media (max-width: 1000px) {
+    .case {
+      margin-bottom: 4.5rem;
+    }
+
+    .case__layout {
+      grid-template-columns: 1fr;
+    }
+
+    .case__side {
+      position: static;
+    }
+
+    .case__stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .case__problems li,
+    .case__solutions li {
+      white-space: normal;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .case__copy {
+      min-height: 0;
+    }
+
+    .case__slide {
+      aspect-ratio: 4 / 3;
+    }
+
+    .case__nav {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .case__hero,
+    .case__hero-copy {
+      min-height: 360px;
+    }
+
+    .case__stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .case__hero:hover img,
+    .case__slide:hover img {
+      transform: scale(1.035);
+    }
+
+    .case__stats > div:hover {
+      transform: translateY(-3px);
+    }
+
+    .case__cat:hover {
+      color: var(--text);
+      border-color: rgba(255, 92, 53, 0.55);
+      transform: translateY(-1px) scale(1.04);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case__hero:hover img,
+    .case__slide:hover img,
+    .case__stats > div:hover,
+    .case__cat:hover {
+      transform: none;
+    }
+  }
+</style>

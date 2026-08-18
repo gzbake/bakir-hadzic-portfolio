@@ -2,6 +2,7 @@ import { revealHero, initHeroParallax } from './animations/hero';
 import { initScroll } from './animations/scroll';
 import { initNavigation } from './animations/navigation';
 import { initButtons } from './animations/buttons';
+import { initCaseCategories, initCaseSlider } from './animations/caseStudy';
 import { createBackground } from './webgl/background';
 
 function boot() {
@@ -10,6 +11,8 @@ function boot() {
     initScroll(),
     createBackground(),
     initHeroParallax(),
+    initCaseCategories(),
+    initCaseSlider(),
   ];
 
   revealHero();

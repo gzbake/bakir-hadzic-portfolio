@@ -3,6 +3,8 @@ export interface Experience {
   role: string;
   dates: string;
   summary: string;
+  href: string;
+  external?: boolean;
 }
 
 export const experience: Experience[] = [
@@ -12,6 +14,8 @@ export const experience: Experience[] = [
     dates: '2025 — 2026',
     summary:
       'Ran digital projects end to end — social media, content, branding, e-commerce, websites, graphic design, video and AI-assisted production. Broad ownership rather than a single specialty.',
+    href: 'https://www.zednova.studio/',
+    external: true,
   },
   {
     company: 'GeoPoint',
@@ -19,6 +23,7 @@ export const experience: Experience[] = [
     dates: '2021 — 2024',
     summary:
       'Managed the company’s social presence, content and audience communication. Also handled SEO, Meta Ads, Google Ads, the company website, and day-to-day client communication.',
+    href: '#work',
   },
   {
     company: 'Imperia Marketing',
@@ -26,6 +31,7 @@ export const experience: Experience[] = [
     dates: '2024 · 6 months',
     summary:
       'Produced high-volume SEO content for crypto and iGaming websites, working inside a structured daily publishing workflow.',
+    href: '#work',
   },
   {
     company: 'Global Billing Group',
@@ -33,5 +39,6 @@ export const experience: Experience[] = [
     dates: 'Feb 2023 — Mar 2024',
     summary:
       'Covered social media and content for a healthcare B2B company, including SEO articles on medical billing and website copy.',
+    href: '#work',
   },
 ];

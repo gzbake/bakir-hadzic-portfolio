@@ -8,7 +8,13 @@ import { experience } from '../data/experience';
     <h2 class="section-title reveal" data-reveal="up">Work Experience</h2>
     <div class="experience__list">
       {experience.map((item) => (
-        <article class="experience__row reveal" data-stagger>
+        <a
+          class="experience__row reveal"
+          data-stagger
+          href={item.href}
+          target={item.external ? '_blank' : undefined}
+          rel={item.external ? 'noopener noreferrer' : undefined}
+        >
           <div class="experience__identity">
             <h3 class="experience__company">{item.company}</h3>
             <p class="experience__role">{item.role}</p>
@@ -16,7 +22,7 @@ import { experience } from '../data/experience';
           <p class="experience__summary">{item.summary}</p>
           <time class="experience__dates">{item.dates}</time>
           <span class="experience__arrow" aria-hidden="true">→</span>
-        </article>
+        </a>
       ))}
     </div>
   </div>
@@ -36,6 +42,7 @@ import { experience } from '../data/experience';
     align-items: start;
     padding-block: 2.5rem;
     border-top: 1px solid var(--line);
+    cursor: pointer;
     transition: border-color 0.35s var(--ease);
   }
 

@@ -6,7 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function initScroll() {
   if (prefersReducedMotion()) {
-    document.querySelectorAll('.reveal').forEach((el) => {
+    document.querySelectorAll('.reveal, [data-case-stat], [data-case-panel]').forEach((el) => {
       (el as HTMLElement).style.opacity = '1';
     });
     return () => {};
@@ -120,6 +120,64 @@ export function initScroll() {
       );
     }
   });
+
+  const caseStudy = document.getElementById('inat');
+  if (caseStudy) {
+    const hero = caseStudy.querySelector<HTMLElement>('[data-case-hero]');
+    const stats = caseStudy.querySelectorAll<HTMLElement>('[data-case-stat]');
+    const panel = caseStudy.querySelector<HTMLElement>('[data-case-panel]');
+
+    if (hero) {
+      gsap.fromTo(
+        hero,
+        { clipPath: 'inset(12% 9% 12% 9%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: hero,
+            start: 'top 86%',
+          },
+        },
+      );
+    }
+
+    if (stats.length) {
+      gsap.fromTo(
+        stats,
+        { opacity: 0, y: 18 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.65,
+          ease: 'power3.out',
+          stagger: 0.08,
+          scrollTrigger: {
+            trigger: stats[0],
+            start: 'top 90%',
+          },
+        },
+      );
+    }
+
+    if (panel) {
+      gsap.fromTo(
+        panel,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: panel,
+            start: 'top 88%',
+          },
+        },
+      );
+    }
+  }
 
   return () => {
     ScrollTrigger.getAll().forEach((t) => t.kill());

@@ -15,6 +15,11 @@ export const faq: FaqItem[] = [
       'Social media management, social strategy, content, digital marketing, e-commerce marketing, paid social, creative operations and AI-assisted content production. I’m strongest where strategy, content and execution sit together.',
   },
   {
+    question: 'What is your minimum rate?',
+    answer:
+      'My minimum hourly rate is $15, and my minimum monthly salary is $2,000. Depending on the role and the scope of the work, we can talk from there.',
+  },
+  {
     question: 'Do you only do social media?',
     answer:
       'Social is the core, but not the whole picture. I’ve also worked on websites, e-commerce, SEO content, paid ads, branding, graphic design, video and automation. I like seeing how those pieces connect.',
@@ -32,6 +37,6 @@ export const faq: FaqItem[] = [
   {
     question: 'Can I see more than the work on this page?',
     answer:
-      'Yes. Open the Inat Bosanski case study for a closer look at one project, and download the CV for the full role history. If you want more context on a specific piece, just ask.',
+      'The Inat Bosanski case study is on this page, in My Previous Work. Download the CV for the full role history, and if you want more context on a specific piece, just ask.',
   },
 ];
