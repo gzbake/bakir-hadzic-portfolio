@@ -4,5 +4,16 @@
       "main": true
     }
   },
-  "ignoreCommand": "exit 1"
+  "ignoreCommand": "exit 1",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet, noimageindex"
+        }
+      ]
+    }
+  ]
 }
